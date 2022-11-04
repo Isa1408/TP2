@@ -57,9 +57,8 @@ public class Usine {
                     leReste = leReste.trim();
                     numDeStationLivraison =
                             Integer.parseInt(leReste.substring(0,1));
-                    leReste = leReste.trim();
                     numDeBoiteLivraison =
-                            Integer.parseInt(leReste.substring(0,1));
+                            Integer.parseInt(leReste.substring(2));
 
                     listeDeStations.add(new Fournisseur("Fournisseur" +
                             " " + typeDeFournisseur,
@@ -71,9 +70,8 @@ public class Usine {
                     leReste = leReste.trim();
                     numDeStationLivraison =
                             Integer.parseInt(leReste.substring(0,1));
-                    leReste = leReste.trim();
                     numDeBoiteLivraison =
-                            Integer.parseInt(leReste.substring(0,1));
+                            Integer.parseInt(leReste.substring(2));
 
                     listeDeStations.add(new Moulin("Moulin",
                             numDeStationLivraison, numDeBoiteLivraison ));
@@ -82,9 +80,8 @@ public class Usine {
                     leReste = leReste.trim();
                     numDeStationLivraison =
                             Integer.parseInt(leReste.substring(0,1));
-                    leReste = leReste.trim();
                     numDeBoiteLivraison =
-                            Integer.parseInt(leReste.substring(0,1));
+                            Integer.parseInt(leReste.substring(2));
 
                     listeDeStations.add(new Fournaise("Fournaise",
                             numDeStationLivraison, numDeBoiteLivraison));
@@ -93,9 +90,8 @@ public class Usine {
                     leReste = leReste.trim();
                     numDeStationLivraison =
                             Integer.parseInt(leReste.substring(0,1));
-                    leReste = leReste.trim();
                     numDeBoiteLivraison =
-                            Integer.parseInt(leReste.substring(0,1));
+                            Integer.parseInt(leReste.substring(2));
 
                     listeDeStations.add(new FournaiseDeGrillage("Fournaise " +
                             "de grillage", numDeStationLivraison,
@@ -105,9 +101,8 @@ public class Usine {
                     leReste = leReste.trim();
                     numDeStationLivraison =
                             Integer.parseInt(leReste.substring(0,1));
-                    leReste = leReste.trim();
                     numDeBoiteLivraison =
-                            Integer.parseInt(leReste.substring(0,1));
+                            Integer.parseInt(leReste.substring(2));
 
                     listeDeStations.add(new FournaiseDeCoupellation(
                             "Fournaise de coupellation",
@@ -117,9 +112,8 @@ public class Usine {
                     leReste = leReste.trim();
                     numDeStationLivraison =
                             Integer.parseInt(leReste.substring(0,1));
-                    leReste = leReste.trim();
                     numDeBoiteLivraison =
-                            Integer.parseInt(leReste.substring(0,1));
+                            Integer.parseInt(leReste.substring(2));
 
                     listeDeStations.add(new Touraille("Touraille",
                             numDeStationLivraison, numDeBoiteLivraison));
@@ -139,9 +133,8 @@ public class Usine {
         leReste = leReste.trim();
         numDeStationLivraison =
                 Integer.parseInt(leReste.substring(0,1));
-        leReste = leReste.trim();
         numDeBoiteLivraison =
-                Integer.parseInt(leReste.substring(0,1));
+                Integer.parseInt(leReste.substring(2));
     }
 
     public int getDebutMontant() {

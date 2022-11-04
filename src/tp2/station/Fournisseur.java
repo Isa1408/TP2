@@ -7,7 +7,7 @@ public class Fournisseur extends Station {
     private int numBoite;
 
     public Fournisseur(String nom, Produit produit, int numStation, int numBoite) {
-        super(nom);
+        super(nom, numStation, numBoite);
         this.produit = produit;
         this.numStation = numStation;
         this.numBoite = numBoite;
