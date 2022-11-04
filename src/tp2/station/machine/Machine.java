@@ -7,8 +7,8 @@ public class Machine extends Station {
     int numBoite;
 
     public Machine(String nom, int numStation, int numBoite) {
-        //super(nom);
-        super(nom, numStation,numBoite);
+        super(nom);
+        //super(nom, numStation,numBoite);
         this.numStation = numStation;
         this.numBoite = numBoite;
     }

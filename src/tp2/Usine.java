@@ -35,6 +35,7 @@ public class Usine {
         int numDeBoiteLivraison = 0;
         String typeDeFournisseur = "";
         String typeDeFournisseurMaj = "";
+        int[] tabTemp = null;
         ArrayList<Station> listeDeStations = new ArrayList<>();
 
         for (int i = 2; i < liste.size(); i++) {
@@ -54,80 +55,62 @@ public class Usine {
                             leReste.indexOf(" "));
                     typeDeFournisseurMaj = typeDeFournisseur.toUpperCase();
                     leReste = leReste.substring(leReste.indexOf(" "));
-                    leReste = leReste.trim();
-                    numDeStationLivraison =
-                            Integer.parseInt(leReste.substring(0,1));
-                    numDeBoiteLivraison =
-                            Integer.parseInt(leReste.substring(2));
+                    tabTemp = descriptionLivraisons(leReste,
+                        numDeStationLivraison,
+                            numDeBoiteLivraison);
 
                     listeDeStations.add(new Fournisseur("Fournisseur" +
                             " " + typeDeFournisseur,
                             Produit.valueOf(typeDeFournisseurMaj),
-                            numDeStationLivraison,
-                            numDeBoiteLivraison));
+                            tabTemp[0], tabTemp[1]));
                     break;
                 case "mmo":
-                    leReste = leReste.trim();
-                    numDeStationLivraison =
-                            Integer.parseInt(leReste.substring(0,1));
-                    numDeBoiteLivraison =
-                            Integer.parseInt(leReste.substring(2));
+                    tabTemp = descriptionLivraisons(leReste,
+                        numDeStationLivraison, numDeBoiteLivraison);
 
                     listeDeStations.add(new Moulin("Moulin",
-                            numDeStationLivraison, numDeBoiteLivraison ));
+                            tabTemp[0], tabTemp[1]));
                     break;
                 case "mfo":
-                    leReste = leReste.trim();
-                    numDeStationLivraison =
-                            Integer.parseInt(leReste.substring(0,1));
-                    numDeBoiteLivraison =
-                            Integer.parseInt(leReste.substring(2));
+                    tabTemp = descriptionLivraisons(leReste,
+                            numDeStationLivraison, numDeBoiteLivraison);
 
                     listeDeStations.add(new Fournaise("Fournaise",
-                            numDeStationLivraison, numDeBoiteLivraison));
+                            tabTemp[0], tabTemp[1]));
                     break;
                 case "mfg":
-                    leReste = leReste.trim();
-                    numDeStationLivraison =
-                            Integer.parseInt(leReste.substring(0,1));
-                    numDeBoiteLivraison =
-                            Integer.parseInt(leReste.substring(2));
+                    tabTemp = descriptionLivraisons(leReste,
+                            numDeStationLivraison, numDeBoiteLivraison);
 
                     listeDeStations.add(new FournaiseDeGrillage("Fournaise " +
-                            "de grillage", numDeStationLivraison,
-                            numDeBoiteLivraison));
+                            "de grillage", tabTemp[0], tabTemp[1]));
                     break;
                 case "mfc":
-                    leReste = leReste.trim();
-                    numDeStationLivraison =
-                            Integer.parseInt(leReste.substring(0,1));
-                    numDeBoiteLivraison =
-                            Integer.parseInt(leReste.substring(2));
+                    tabTemp = descriptionLivraisons(leReste,
+                            numDeStationLivraison, numDeBoiteLivraison);
 
                     listeDeStations.add(new FournaiseDeCoupellation(
                             "Fournaise de coupellation",
-                            numDeStationLivraison, numDeBoiteLivraison));
+                            tabTemp[0], tabTemp[1]));
                     break;
                 case "mto":
-                    leReste = leReste.trim();
-                    numDeStationLivraison =
-                            Integer.parseInt(leReste.substring(0,1));
-                    numDeBoiteLivraison =
-                            Integer.parseInt(leReste.substring(2));
+                    tabTemp = descriptionLivraisons(leReste,
+                        numDeStationLivraison,
+                             numDeBoiteLivraison);
 
                     listeDeStations.add(new Touraille("Touraille",
-                            numDeStationLivraison, numDeBoiteLivraison));
+                            tabTemp[0], tabTemp[1]));
                     break;
                 case "ven":
                     listeDeStations.add(new Vendeur("Vendeur"));
                     break;
             }
         }
-        System.out.println(listeDeStations);
+        //System.out.println(listeDeStations);
         return listeDeStations;
     }
 
-    public static void descriptionLivraisons(String leReste,
+    public static int[] descriptionLivraisons(String leReste,
                                              int numDeStationLivraison,
                                              int numDeBoiteLivraison){
         leReste = leReste.trim();
@@ -135,6 +118,8 @@ public class Usine {
                 Integer.parseInt(leReste.substring(0,1));
         numDeBoiteLivraison =
                 Integer.parseInt(leReste.substring(2));
+        int tabTemp[] = {numDeStationLivraison, numDeBoiteLivraison};
+        return tabTemp;
     }
 
     public int getDebutMontant() {
