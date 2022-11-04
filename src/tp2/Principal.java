@@ -1,14 +1,14 @@
 package tp2;
+import tp2.station.Station;
+
 import java.util.ArrayList;
 
 public class Principal {
     public static void main(String[] args) {
         ArrayList<String> liste = lireFichier.listeString();
         Usine usine = new Usine(liste);
-        System.out.println(liste);
-        System.out.println(liste.get(0));;
-        System.out.println(liste.get(1));
+        //System.out.println(usine);
+       // ArrayList<Station> listeDeStations = Usine.filtrerListeString(liste);
 
-        System.out.println();
     }
 }

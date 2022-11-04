@@ -7,6 +7,10 @@ public abstract class Station {
         this.nom = nom;
     }
 
+    public String toString(){
+        return this.nom;
+    }
+
     public String getNom() {
         return nom;
     }
