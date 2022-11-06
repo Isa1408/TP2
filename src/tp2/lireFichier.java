@@ -12,7 +12,7 @@ public class lireFichier {
      */
     public static String demanderNomFichier(){
         Scanner clavier = new Scanner(System.in);
-        System.out.print("Entrez le nom du fichier: ");
+        System.out.print("Entrez le nom du fichier contenant le niveau : ");
         String nomFichierEntrees = clavier.next();
 
         return nomFichierEntrees;
