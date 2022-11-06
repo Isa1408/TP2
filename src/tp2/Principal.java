@@ -7,8 +7,11 @@ public class Principal {
     public static void main(String[] args) {
         ArrayList<String> liste = lireFichier.listeString();
         Usine usine = new Usine(liste);
-        //System.out.println(usine);
-       // ArrayList<Station> listeDeStations = Usine.filtrerListeString(liste);
+        Usine.afficherEtatUsine(usine);
+
+
+
+       //ArrayList<Station> listeDeStations = Usine.filtrerListeString(liste);
 
     }
 }

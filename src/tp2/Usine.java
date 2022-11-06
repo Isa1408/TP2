@@ -59,8 +59,12 @@ public class Usine {
                         numDeStationLivraison,
                             numDeBoiteLivraison);
 
-                    listeDeStations.add(new Fournisseur("Fournisseur" +
-                            " " + typeDeFournisseur,
+//                    listeDeStations.add(new Fournisseur("fou" +
+//                            " " + typeDeFournisseur,
+//                            Produit.valueOf(typeDeFournisseurMaj),
+//                            tabTemp[0], tabTemp[1]));
+
+                    listeDeStations.add(new Fournisseur("fou",
                             Produit.valueOf(typeDeFournisseurMaj),
                             tabTemp[0], tabTemp[1]));
                     break;
@@ -68,29 +72,29 @@ public class Usine {
                     tabTemp = descriptionLivraisons(leReste,
                         numDeStationLivraison, numDeBoiteLivraison);
 
-                    listeDeStations.add(new Moulin("Moulin",
+                    listeDeStations.add(new Moulin("mmo",
                             tabTemp[0], tabTemp[1]));
                     break;
                 case "mfo":
                     tabTemp = descriptionLivraisons(leReste,
                             numDeStationLivraison, numDeBoiteLivraison);
 
-                    listeDeStations.add(new Fournaise("Fournaise",
+                    listeDeStations.add(new Fournaise("mfo",
                             tabTemp[0], tabTemp[1]));
                     break;
                 case "mfg":
                     tabTemp = descriptionLivraisons(leReste,
                             numDeStationLivraison, numDeBoiteLivraison);
 
-                    listeDeStations.add(new FournaiseDeGrillage("Fournaise " +
-                            "de grillage", tabTemp[0], tabTemp[1]));
+                    listeDeStations.add(new FournaiseDeGrillage("mfg ",
+                            tabTemp[0], tabTemp[1]));
                     break;
                 case "mfc":
                     tabTemp = descriptionLivraisons(leReste,
                             numDeStationLivraison, numDeBoiteLivraison);
 
                     listeDeStations.add(new FournaiseDeCoupellation(
-                            "Fournaise de coupellation",
+                            "mfc",
                             tabTemp[0], tabTemp[1]));
                     break;
                 case "mto":
@@ -98,11 +102,11 @@ public class Usine {
                         numDeStationLivraison,
                              numDeBoiteLivraison);
 
-                    listeDeStations.add(new Touraille("Touraille",
+                    listeDeStations.add(new Touraille("mto",
                             tabTemp[0], tabTemp[1]));
                     break;
                 case "ven":
-                    listeDeStations.add(new Vendeur("Vendeur"));
+                    listeDeStations.add(new Vendeur("ven"));
                     break;
             }
         }
@@ -120,6 +124,35 @@ public class Usine {
                 Integer.parseInt(leReste.substring(2));
         int tabTemp[] = {numDeStationLivraison, numDeBoiteLivraison};
         return tabTemp;
+    }
+
+    public static String afficherEtatUsine(Usine usine){
+        String etatUsine = "";
+
+        for (int i = 0; i < usine.listeDeStations.size(); i++) {
+            //usine.listeDeStations.get(i).toString();
+            Station station = usine.listeDeStations.get(i);
+
+           // System.out.println(station.getNom().toString());
+
+            if(station.getNom().toString().equals("fou")){
+                Fournisseur fou = (Fournisseur) usine.listeDeStations.get(i);
+                System.out.println(i + " : " + fou.getNom() + " F: 1 " +
+                        fou.getProduit().nomAffichableSinguler + " (nbr de " +
+                        "tours qu'il reste) " + "(" + fou.getNumDeLivraison() +
+                        "," + fou.getNumDeBoite0() + ")");
+            } else if(station.getNom().toString().equals("ven")){
+                System.out.println(i + " : " + station.getNom());
+            }else {
+                System.out.println(i + " : " + station.getNom() + "(" +
+                        "(niveau)" + ") " );
+            }
+
+            //System.out.println(i + " : " + station.getNom() );
+        }
+
+
+        return etatUsine;
     }
 
     public int getDebutMontant() {

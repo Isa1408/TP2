@@ -1,53 +1,53 @@
 package tp2;
 
 public enum DescriptionStations {
-  FOURNISSEUR_ACANTHITE("Fournisseur", 2, Produit.ACANTHITE, 1),
-  FOURNISSEUR_CASSITERITE("Fournisseur", 7, Produit.CASSITERITE, 1),
-  FOURNISSEUR_CHALCOCITE("Fournisseur", 3, Produit.CHALCOCITE, 1),
-  FOURNISSEUR_CHARBON("Fournisseur", 1, Produit.CHARBON, 1),
-  MOULIN_ACANTHITE("Moulin", 3,
+  FOURNISSEUR_ACANTHITE("fou", 2, Produit.ACANTHITE, 1),
+  FOURNISSEUR_CASSITERITE("fou", 7, Produit.CASSITERITE, 1),
+  FOURNISSEUR_CHALCOCITE("fou", 3, Produit.CHALCOCITE, 1),
+  FOURNISSEUR_CHARBON("fou", 1, Produit.CHARBON, 1),
+  MOULIN_ACANTHITE("mmo", 3,
           new Boite(Produit.ACANTHITE, 1), Produit.POUDRE_ACANTHITE, 1),
-  MOULIN_CASSITERRITE("Moulin", 7,
+  MOULIN_CASSITERRITE("mmo", 7,
           new Boite(Produit.CASSITERITE, 1), Produit.POUDRE_CASSITERITE, 1),
-  MOULIN_CHALCOCITE("Moulin", 3,
+  MOULIN_CHALCOCITE("mmo", 3,
           new Boite(Produit.CHALCOCITE, 1), Produit.POUDRE_CHALCOCITE, 1),
-  FOURNAISE_ACANTHITE("Fournaise", 4,
+  FOURNAISE_ACANTHITE("mfo", 4,
           new Boite(Produit.ACANTHITE, 1),
           Produit.LITHARGE, 1),
-  FOURNAISE_POUDRE_ACANTHITE("Fournaise", 4,
+  FOURNAISE_POUDRE_ACANTHITE("mfo", 4,
           new Boite(Produit.POUDRE_ACANTHITE, 1),
           Produit.LITHARGE, 2),
-  FOURNAISE_LINGOTS_CUIVRE("Fournaise", 4,
+  FOURNAISE_LINGOTS_CUIVRE("mfo", 4,
           new Boite(Produit.LINGOT_CUIVRE, 7, Produit.LINGOT_ETAIN, 1),
-          Produit.LITHARGE, 2),
-  FOURNAISE_GRILLAGE_LITHARGE("Fournaise de grillage", 14,
+          Produit.LINGOT_BRONZE, 8),
+  FOURNAISE_GRILLAGE_LITHARGE("mfg", 14,
           new Boite(Produit.LITHARGE, 1, Produit.COKE, 1),
           Produit.OXYDE_ARGENT, 1),
-  FOURNAISE_GRILLAGE_CASSITERITE("Fournaise de grillage", 12,
+  FOURNAISE_GRILLAGE_CASSITERITE("mfg", 12,
           new Boite(Produit.CASSITERITE, 1, Produit.COKE, 1),
           Produit.OXYDE_ETAIN, 1),
-  FOURNAISE_GRILLAGE_POUDRE_CASSITERITE("Fournaise de grillage", 12,
+  FOURNAISE_GRILLAGE_POUDRE_CASSITERITE("mfg", 12,
           new Boite(Produit.POUDRE_CASSITERITE, 1, Produit.COKE, 1),
           Produit.OXYDE_ETAIN, 2),
-  FOURNAISE_GRILLAGE_CHALCOCITE("Fournaise de grillage", 13,
+  FOURNAISE_GRILLAGE_CHALCOCITE("mfg", 13,
           new Boite(Produit.CHALCOCITE, 1, Produit.COKE, 1),
           Produit.OXYDE_CUIVRE, 1),
-  FOURNAISE_GRILLAGE_POUDRE_CHALCOCITE("Fournaise de grillage", 13,
+  FOURNAISE_GRILLAGE_POUDRE_CHALCOCITE("mfg", 13,
           new Boite(Produit.POUDRE_CHALCOCITE, 1, Produit.COKE, 1),
           Produit.OXYDE_CUIVRE, 2),
-  FOURNAISE_COUPELLATION_OXYDE_ARGENT("Fournaise de coupellation", 10,
+  FOURNAISE_COUPELLATION_OXYDE_ARGENT("mfc", 10,
           new Boite(Produit.OXYDE_ARGENT, 1),
           Produit.LINGOT_ARGENT, 1),
-  FOURNAISE_COUPELLATION_OXYDE_ETAIN("Fournaise de coupellation", 2,
+  FOURNAISE_COUPELLATION_OXYDE_ETAIN("mfc", 2,
           new Boite(Produit.OXYDE_ETAIN, 1),
           Produit.LINGOT_ETAIN, 1),
-  FOURNAISE_COUPELLATION_OXYDE_CUIVRE("Fournaise de coupellation", 3,
+  FOURNAISE_COUPELLATION_OXYDE_CUIVRE("mfc", 3,
           new Boite(Produit.OXYDE_CUIVRE, 1),
           Produit.LINGOT_CUIVRE, 1),
-  TOURAILLE_CHARBON("Touraille", 20,
+  TOURAILLE_CHARBON("mto", 20,
           new Boite(Produit.CHARBON, 1),
           Produit.COKE, 1),
-  //VENDEUR("Vendeur", new Boite(Produit))
+  //VENDEUR("ven", new Boite(Produit))
   ;
   public String nomMachine;
   public int nbrTours;
@@ -77,5 +77,25 @@ public enum DescriptionStations {
     this.boite = boite;
     this.livre = livre;
     this.nbrProduitLivre = nbrProduitLivre;
+  }
+
+  public String getNomMachine() {
+    return nomMachine;
+  }
+
+  public int getNbrTours() {
+    return nbrTours;
+  }
+
+  public Boite getBoite() {
+    return boite;
+  }
+
+  public Produit getLivre() {
+    return livre;
+  }
+
+  public int getNbrProduitLivre() {
+    return nbrProduitLivre;
   }
 }
