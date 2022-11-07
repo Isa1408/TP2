@@ -128,6 +128,10 @@ public class Usine {
 
     public static String afficherEtatUsine(Usine usine){
         String etatUsine = "";
+        ArrayList<Fournisseur> listeDeFournisseurs = new ArrayList<>();
+        Fournisseur fournisseur;
+        Machine machine;
+
 
         for (int i = 0; i < usine.listeDeStations.size(); i++) {
             //usine.listeDeStations.get(i).toString();
@@ -136,16 +140,41 @@ public class Usine {
            // System.out.println(station.getNom().toString());
 
             if(station.getNom().toString().equals("fou")){
+                //listeDeFournisseurs = new ArrayList<>();
                 Fournisseur fou = (Fournisseur) usine.listeDeStations.get(i);
+                fournisseur = new Fournisseur(fou.getNom(),
+                        fou.getProduit(), fou.getNumDeLivraison(), fou.getNumDeBoite());
+
+                //ajouter les fournisseurs dans une liste
+                listeDeFournisseurs.add(fournisseur);
+
                 System.out.println(i + " : " + fou.getNom() + " F: 1 " +
                         fou.getProduit().nomAffichableSinguler + " (nbr de " +
                         "tours qu'il reste) " + "(" + fou.getNumDeLivraison() +
-                        "," + fou.getNumDeBoite0() + ")");
+                        "," + fou.getNumDeBoite() + ")");
+
             } else if(station.getNom().toString().equals("ven")){
                 System.out.println(i + " : " + station.getNom());
             }else {
+                //Machine machine = (Machine) usine.listeDeStations.get(i);
+//                machine = new Machine(station.getNom(),
+//                        station.getNumDeLivraison(), station.getNumDeBoite());
+
+                if (listeDeFournisseurs != null){
+                    for (int j = 0; j < listeDeFournisseurs.size(); j++) {
+                        Fournisseur fournisseur1 = listeDeFournisseurs.get(j);
+                        if (fournisseur1.getNumDeLivraison() == i){
+                            machine = new Machine(station.getNom(),
+                                    fournisseur1.getProduit(),
+                                    station.getNumDeLivraison(), station.getNumDeBoite());
+                            System.out.println(machine.toString());
+                        }
+                    }
+                }
+
+                //System.out.println(machine.toString());
                 System.out.println(i + " : " + station.getNom() + "(" +
-                        "(niveau)" + ") " );
+                        "[niveau]" + ") ");
             }
 
             //System.out.println(i + " : " + station.getNom() );
