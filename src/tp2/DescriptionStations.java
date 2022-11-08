@@ -79,6 +79,13 @@ public enum DescriptionStations {
     this.nbrProduitLivre = nbrProduitLivre;
   }
 
+  public void diminuerNbrTours(){
+    this.nbrTours--;
+  }
+
+  public void augQteFabriquee(){
+    this.nbrProduitLivre++;
+  }
   public String getNomMachine() {
     return nomMachine;
   }

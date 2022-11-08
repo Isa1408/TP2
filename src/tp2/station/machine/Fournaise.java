@@ -7,9 +7,9 @@ public class Fournaise extends Machine {
         super(nom, numStation, numBoite);
     }
 
-    public Fournaise(String nom, Produit produit, int numStation,
-                     int numBoite) {
-        super(nom, numStation, numBoite);
-        this.produit = produit;
-    }
+//    public Fournaise(String nom, Produit produit, int numStation,
+//                     int numBoite) {
+//        super(nom, numStation, numBoite);
+//        this.produit = produit;
+//    }
 }

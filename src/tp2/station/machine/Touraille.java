@@ -7,9 +7,9 @@ public class Touraille extends Machine {
         super(nom, numStation, numBoite);
     }
 
-    public Touraille(String nom, Produit produit, int numStation,
-                     int numBoite) {
-        super(nom, numStation, numBoite);
-        this.produit = produit;
-    }
+//    public Touraille(String nom, Produit produit, int numStation,
+//                     int numBoite) {
+//        super(nom, numStation, numBoite);
+//        this.produit = produit;
+//    }
 }

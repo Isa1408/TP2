@@ -7,9 +7,9 @@ public class FournaiseDeCoupellation extends Machine {
         super(nom, numStation, numBoite);
     }
 
-    public FournaiseDeCoupellation(String nom, Produit produit, int numStation,
-                                   int numBoite) {
-        super(nom, numStation, numBoite);
-        this.produit = produit;
-    }
+//    public FournaiseDeCoupellation(String nom, Produit produit, int numStation,
+//                                   int numBoite) {
+//        super(nom, numStation, numBoite);
+//        this.produit = produit;
+//    }
 }

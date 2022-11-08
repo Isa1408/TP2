@@ -17,18 +17,18 @@ public class Machine extends Station {
         //this.numBoite0 = numBoite0;
     }
 
-    public Machine(String nom, Produit produit, int numStation, int numBoite) {
-        //super(nom);
-        super(nom,numStation, numBoite);
-        this.produit = produit;
-        this.numStation = numStation;
-        //this.numBoite0 = numBoite0;
-    }
+//    public Machine(String nom, Produit produit, int numStation, int numBoite) {
+//        //super(nom);
+//        super(nom,numStation, numBoite);
+//        this.produit = produit;
+//        this.numStation = numStation;
+//        //this.numBoite0 = numBoite0;
+//    }
 
     @Override
     public String toString() {
         return "Machine{" +
-                "numStation=" + numStation +
+                "numStation=" + numStation + ", numBoite="+ super.getNumDeBoite() +
                 ", produit=" + produit +
                 '}';
     }
@@ -39,4 +39,8 @@ public class Machine extends Station {
 //        this.numStation = numStation;
 //        //this.numBoite0 = numBoite0;
 //    }
+
+    public void setProduit(Produit produit) {
+        this.produit = produit;
+    }
 }
