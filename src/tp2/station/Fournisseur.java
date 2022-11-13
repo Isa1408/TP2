@@ -22,6 +22,16 @@ public class Fournisseur extends Station {
         this.produitDansBoites = produitDansBoites;
     }
 
+    @Override
+    public void setProduitDansBoites1(Produit produit1) {
+        this.produitDansBoites[0] = produit1;
+    }
+
+    @Override
+    public void setProduitDansBoites2(Produit produit2) {
+        this.produitDansBoites[1] = produit2;
+    }
+
     public Produit getProduit() {
         return produit;
     }

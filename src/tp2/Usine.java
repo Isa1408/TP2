@@ -150,23 +150,27 @@ public class Usine {
         Station stationDeLivraison;
         Station stationActuel;
         for (int i = 0; i < listeDeStations.size(); i++) {
+            System.out.println(listeDeStations);
             stationActuel = listeDeStations.get(i);
             numDeLivraison = stationActuel.getNumDeLivraison();
             numDeBoiteOuLivrer = stationActuel.getNumDeBoite();
             //il faut receuillir les fournisseurs en premier
             if (stationActuel.getNom().toString().equals("fou")) {
                 stationDeLivraison = listeDeStations.get(numDeLivraison);
+                System.out.println(stationDeLivraison.getClass().toString());
+               // System.out.println("La station de livraison: " +
+                // stationDeLivraison);
 //                stationDeLivraison.setProduit(stationActuel.getProduit());
 
                 if(numDeBoiteOuLivrer == 0){
-                    //Touraille touraille;
                     stationDeLivraison.setProduitDansBoites1(stationActuel.getProduit());
                 }else if(numDeBoiteOuLivrer == 1){
                     stationDeLivraison.setProduitDansBoites2(stationActuel.getProduit());
                 }
             }
         }
-        System.out.println(listeDeStations);
+//        System.out.println(listeDeStations);
+
         for (int i = 0; i < listeDeStations.size(); i++) {
             stationActuel = listeDeStations.get(i);
             numDeLivraison = stationActuel.getNumDeLivraison();

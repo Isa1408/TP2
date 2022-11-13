@@ -10,7 +10,7 @@ public class Machine extends Station {
 //    int numBoite0;
 //    int numBoite1;
     Produit produit;
-    Produit [] produitDansBoites;
+    private Produit [] produitDansBoites;
 
     public Machine(String nom, int numStation, int numBoite,
                    Produit [] produitDansBoites) {
@@ -19,7 +19,6 @@ public class Machine extends Station {
         //this.produit = produit;
         this.numStation = numStation;
         this.produitDansBoites = produitDansBoites;
-        //this.numBoite0 = numBoite0;
     }
 
 //    public Machine(String nom, Produit produit, int numStation, int numBoite) {
@@ -53,6 +52,16 @@ public class Machine extends Station {
     public void setProduitDansBoites(Produit[] produitDansBoites) {
         super.setProduitDansBoites(produitDansBoites);
         this.produitDansBoites = produitDansBoites;
+    }
+
+    @Override
+    public void setProduitDansBoites1(Produit produit1) {
+        this.produitDansBoites[0] = produit1;
+    }
+
+    @Override
+    public void setProduitDansBoites2(Produit produit2) {
+        this.produitDansBoites[1] = produit2;
     }
     //pcq je l ai mit dans super
 //    public void setProduit(Produit produit) {
