@@ -8,7 +8,8 @@ public class Principal {
     public static void main(String[] args) {
         ArrayList<String> liste = lireFichier.listeString();
         Usine usine = new Usine(liste);
-        Usine.afficherEtatUsine(usine);
+        //Usine.afficherEtatUsine(usine);
+        Usine.setteurDeProduitStations();
 //        System.out.println(Arrays.toString(DescriptionStations.values()));
 //        System.out.println(DescriptionStations.FOURNAISE_COUPELLATION_OXYDE_ARGENT.getBoite().toString());
 

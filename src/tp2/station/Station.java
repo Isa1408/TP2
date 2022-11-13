@@ -6,11 +6,13 @@ public abstract class Station {
     private String nom;
     private int numDeLivraison;
     private int numDeBoite;
-    private int numDeBoite1;
+//    private int numDeBoite1;
     private Produit produit;
+    private Produit [] produitDansBoites;
 
-    public Station (String nom){
+    public Station (String nom, Produit [] produitDansBoites){
         this.nom = nom;
+        this.produitDansBoites = produitDansBoites;
     }
 
     public Station(String nom, int numDeLivraison,
@@ -18,6 +20,7 @@ public abstract class Station {
         this.nom = nom;
         this.numDeLivraison = numDeLivraison;
         this.numDeBoite = numDeBoite;
+        this.produitDansBoites = produitDansBoites;
     }
 
 //    public Station(String nom, Produit produit, int numDeLivraison,
@@ -51,6 +54,36 @@ public abstract class Station {
 
     public int getNumDeBoite() {
         return numDeBoite;
+    }
+
+    public void setProduit(Produit produit) {
+        this.produit = produit;
+    }
+
+    public Produit getProduit() {
+        return produit;
+    }
+
+    public Produit[] getProduitDansBoites() {
+        return produitDansBoites;
+    }
+
+//    public void setProduitDansBoites(Produit produit1, Produit produit2) {
+//        this.produitDansBoites[0] = produit1;
+//        this.produitDansBoites[1] = produit2;
+//    }
+
+
+    public void setProduitDansBoites(Produit[] produitDansBoites) {
+        this.produitDansBoites = produitDansBoites;
+    }
+
+    public void setProduitDansBoites1(Produit produit1) {
+        this.produitDansBoites[0] = produit1;
+    }
+
+    public void setProduitDansBoites2(Produit produit2) {
+        this.produitDansBoites[1] = produit2;
     }
 
 }

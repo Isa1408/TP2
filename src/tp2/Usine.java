@@ -38,6 +38,7 @@ public class Usine {
         String typeDeFournisseur = "";
         String typeDeFournisseurMaj = "";
         int[] tabTemp = null;
+        Produit [] produitDansBoites = new Produit[2];
         listeDeStations = new ArrayList<>();
         listeDeFournisseurs = new ArrayList<>();
         listeDeMachines = new ArrayList<>();
@@ -65,7 +66,7 @@ public class Usine {
 
                     Fournisseur fournisseur = new Fournisseur("fou",
                             Produit.valueOf(typeDeFournisseurMaj),
-                            tabTemp[0], tabTemp[1]);
+                            tabTemp[0], tabTemp[1], produitDansBoites);
 
                     listeDeStations.add(fournisseur);
                     listeDeFournisseurs.add(fournisseur);
@@ -74,7 +75,7 @@ public class Usine {
                     tabTemp = descriptionLivraisons(leReste,
                         numDeStationLivraison, numDeBoiteLivraison);
                     Moulin moulin = new Moulin("mmo",
-                            tabTemp[0], tabTemp[1]);
+                            tabTemp[0], tabTemp[1], produitDansBoites);
 
                     listeDeStations.add(moulin);
                     listeDeMachines.add(moulin);
@@ -83,7 +84,7 @@ public class Usine {
                     tabTemp = descriptionLivraisons(leReste,
                             numDeStationLivraison, numDeBoiteLivraison);
                     Fournaise fournaise = new Fournaise("mfo",tabTemp[0],
-                            tabTemp[1]);
+                            tabTemp[1], produitDansBoites);
 
                     listeDeStations.add(fournaise);
                     listeDeMachines.add(fournaise);
@@ -93,7 +94,7 @@ public class Usine {
                             numDeStationLivraison, numDeBoiteLivraison);
                     FournaiseDeGrillage fournaiseDeGrillage =
                             new FournaiseDeGrillage("mfg", tabTemp[0],
-                                    tabTemp[1]);
+                                    tabTemp[1], produitDansBoites);
 
                     listeDeStations.add(fournaiseDeGrillage);
                     listeDeMachines.add(fournaiseDeGrillage);
@@ -103,7 +104,7 @@ public class Usine {
                             numDeStationLivraison, numDeBoiteLivraison);
                     FournaiseDeCoupellation fournaiseDeCoupellation =
                             new FournaiseDeCoupellation("mfc", tabTemp[0],
-                                    tabTemp[1]);
+                                    tabTemp[1], produitDansBoites);
 
                     listeDeStations.add(fournaiseDeCoupellation);
                     listeDeMachines.add(fournaiseDeCoupellation);
@@ -113,18 +114,18 @@ public class Usine {
                         numDeStationLivraison,
                              numDeBoiteLivraison);
                     Touraille touraille = new Touraille("mto",
-                            tabTemp[0], tabTemp[1]);
+                            tabTemp[0], tabTemp[1], produitDansBoites);
 
                     listeDeStations.add(touraille);
                     listeDeMachines.add(touraille);
 
                     break;
                 case "ven":
-                    listeDeStations.add(new Vendeur("ven"));
+                    listeDeStations.add(new Vendeur("ven", produitDansBoites));
                     break;
             }
         }
-        System.out.println(listeDeStations);
+        System.out.println("la liste de stations: "+listeDeStations);
     }
 
     public static int[] descriptionLivraisons(String leReste,
@@ -139,109 +140,163 @@ public class Usine {
         return tabTemp;
     }
 
+    public static void relierLesStations(){
 
+    }
 
-    public static String afficherEtatUsine(Usine usine){
-        String etatUsine = "";
-        ArrayList<Fournisseur> listeDeFournisseurs = new ArrayList<>();
-        Fournisseur fournisseur;
-        Machine machine;
-        ArrayList<Machine> listeDeMachines = new ArrayList<>();
-
-
+    public static void setteurDeProduitStations(){
+        int numDeLivraison; //quelle stationDeLivraison
+        int numDeBoiteOuLivrer; //dans quelle boite on livre le produit (0,1)
+        Station stationDeLivraison;
+        Station stationActuel;
         for (int i = 0; i < listeDeStations.size(); i++) {
-            //usine.listeDeStations.get(i).toString();
-            Station station = listeDeStations.get(i);
+            stationActuel = listeDeStations.get(i);
+            numDeLivraison = stationActuel.getNumDeLivraison();
+            numDeBoiteOuLivrer = stationActuel.getNumDeBoite();
+            //il faut receuillir les fournisseurs en premier
+            if (stationActuel.getNom().toString().equals("fou")) {
+                stationDeLivraison = listeDeStations.get(numDeLivraison);
+//                stationDeLivraison.setProduit(stationActuel.getProduit());
 
-           // System.out.println(station.getNom().toString());
-
-            if(station.getNom().toString().equals("fou")){
-                //listeDeFournisseurs = new ArrayList<>();
-                Fournisseur fou = (Fournisseur) listeDeStations.get(i);
-                fournisseur = new Fournisseur(fou.getNom(),
-                        fou.getProduit(), fou.getNumDeLivraison(), fou.getNumDeBoite());
-
-                //ajouter les fournisseurs dans une liste
-                listeDeFournisseurs.add(fournisseur);
-
-
-                System.out.println(i + " : " + fou.getNom() + " F: 1 " +
-                        fou.getProduit().nomAffichableSinguler + " (nbr de " +
-                        "tours qu'il reste) " + "(" + fou.getNumDeLivraison() +
-                        "," + fou.getNumDeBoite() + ")");
-
-            } else if(station.getNom().toString().equals("ven")){
-                System.out.println(i + " : " + station.getNom());
-            }else {
-                //Machine machine = (Machine) usine.listeDeStations.get(i);
-//                machine = new Machine(station.getNom(),
-//                        station.getNumDeLivraison(), station.getNumDeBoite());
-
-                if (!listeDeFournisseurs.isEmpty()){
-                    for (int j = 0; j < listeDeFournisseurs.size(); j++) {
-                        Fournisseur fournisseur1 = listeDeFournisseurs.get(j);
-
-                        //station.getNumDeLivraison() == i dans le if
-                        //le comment ci-haut fonctionne pas
-                        if (fournisseur1.getNumDeLivraison() == i){
-                            switch (station.getNom()){
-                                case "mmo":
-                                    Moulin moulin = new Moulin("mmo",
-                                            station.getNumDeLivraison(),
-                                            station.getNumDeBoite());
-                                    moulin.setProduit(fournisseur1.getProduit());
-                                    listeDeMachines.add(moulin);
-                                    break;
-                                case "mfo":
-                                    Fournaise fournaise = new Fournaise("mfo",
-                                            station.getNumDeLivraison(),
-                                            station.getNumDeBoite());
-                                    fournaise.setProduit(fournisseur1.getProduit());
-                                    listeDeMachines.add(fournaise);
-                                    break;
-                                case "mfg":
-                                    FournaiseDeGrillage fournaiseDeGrillage =
-                                            new FournaiseDeGrillage("mfg",
-                                                    station.getNumDeLivraison(),
-                                                    station.getNumDeBoite());
-                                    fournaiseDeGrillage.setProduit(fournisseur1.getProduit());
-                                    listeDeMachines.add(fournaiseDeGrillage);
-                                    break;
-                                case "mfc":
-                                    FournaiseDeCoupellation fournaiseDeCoupellation =
-                                            new FournaiseDeCoupellation("mfc",
-                                                    station.getNumDeLivraison(),
-                                                    station.getNumDeBoite());
-                                    fournaiseDeCoupellation.setProduit(fournisseur1.getProduit());
-                                    listeDeMachines.add(fournaiseDeCoupellation);
-                                    break;
-                                case "mto":
-                                    Touraille touraille = new Touraille("mto",
-                                            station.getNumDeLivraison(),
-                                            station.getNumDeBoite());
-                                    listeDeMachines.add(touraille);
-                                    touraille.setProduit(fournisseur1.getProduit());
-                                    break;
-                            }
-                            System.out.println(listeDeMachines);
-//                            machine = new Machine(station.getNom(),
-//                                    fournisseur1.getProduit(),
-//                                    station.getNumDeLivraison(), station.getNumDeBoite());
-//                            System.out.println(machine.toString());
-                        }
-                    }
+                if(numDeBoiteOuLivrer == 0){
+                    //Touraille touraille;
+                    stationDeLivraison.setProduitDansBoites1(stationActuel.getProduit());
+                }else if(numDeBoiteOuLivrer == 1){
+                    stationDeLivraison.setProduitDansBoites2(stationActuel.getProduit());
                 }
+            }
+        }
+        System.out.println(listeDeStations);
+        for (int i = 0; i < listeDeStations.size(); i++) {
+            stationActuel = listeDeStations.get(i);
+            numDeLivraison = stationActuel.getNumDeLivraison();
+            numDeBoiteOuLivrer = stationActuel.getNumDeBoite();
+            stationDeLivraison = listeDeStations.get(numDeLivraison);
+            if (stationActuel.getNom().toString().equals("ven")){
+                //a completer
 
-                //System.out.println(machine.toString());
-                System.out.println(i + " : " + station.getNom() + "(" +
-                        "[niveau]" + ") ");
+            }else if(!stationActuel.getNom().toString().equals("fou") &&
+                    !stationActuel.getNom().toString().equals("ven")){
+                stationDeLivraison = listeDeStations.get(numDeLivraison);
+//                stationDeLivraison.setProduit(stationActuel.getProduit());
+
+                //dans le but de voir quelle boite sera modifié
+                if(numDeBoiteOuLivrer == 0){
+                    stationDeLivraison.setProduitDansBoites1(stationActuel.getProduit());
+                }else if(numDeBoiteOuLivrer == 1){
+                    stationDeLivraison.setProduitDansBoites2(stationActuel.getProduit());
+                }
 
             }
         }
+        System.out.println(listeDeStations);
+//           if (!(stationDeLivraison.getNom().toString().equals("fou") && stationDeLivraison.getNom().toString().equals("ven"))){
+//
+//           }else if (stationDeLivraison.getNom().toString().equals("ven")){
+//
+//           }else{
+//
+//           }
 
-
-        return etatUsine;
     }
+
+
+    //pas besoin de refaire une liste listeDeFournisseur, listeDeMachines.
+    //je peux travailler avec la listeDeStations, listeDeFournisseurs,
+    // listeDeMachines qui sont deja cree en haut dans la methode
+    // creerListeStation.
+
+//    public static String afficherEtatUsine(Usine usine){
+//        String etatUsine = "";
+//        ArrayList<Fournisseur> listeDeFournisseurs = new ArrayList<>();
+//        Fournisseur fournisseur;
+//        Machine machine;
+//        ArrayList<Machine> listeDeMachines = new ArrayList<>();
+//
+//
+//        for (int i = 0; i < listeDeStations.size(); i++) {
+//            Station station = listeDeStations.get(i);
+//
+//            if(station.getNom().toString().equals("fou")){
+//                Fournisseur fou = (Fournisseur) listeDeStations.get(i);
+//                fournisseur = new Fournisseur(fou.getNom(),
+//                        fou.getProduit(), fou.getNumDeLivraison(), fou.getNumDeBoite());
+//
+//                //ajouter les fournisseurs dans une liste
+//                listeDeFournisseurs.add(fournisseur);
+//
+//
+//                System.out.println(i + " : " + fou.getNom() + " F: 1 " +
+//                        fou.getProduit().nomAffichableSinguler + " (nbr de " +
+//                        "tours qu'il reste) " + "(" + fou.getNumDeLivraison() +
+//                        "," + fou.getNumDeBoite() + ")");
+//
+//            } else if(station.getNom().toString().equals("ven")){
+//                System.out.println(i + " : " + station.getNom());
+//            }else {
+//                if (!listeDeFournisseurs.isEmpty()){
+//                    for (int j = 0; j < listeDeFournisseurs.size(); j++) {
+//                        Fournisseur fournisseur1 = listeDeFournisseurs.get(j);
+//
+//                        //station.getNumDeLivraison() == i dans le if
+//                        //le commentaire ci-haut fonctionne pas
+//                        if (fournisseur1.getNumDeLivraison() == i){
+//                            switch (station.getNom()){
+//                                case "mmo":
+//                                    Moulin moulin = new Moulin("mmo",
+//                                            station.getNumDeLivraison(),
+//                                            station.getNumDeBoite());
+//                                    moulin.setProduit(fournisseur1.getProduit());
+//                                    listeDeMachines.add(moulin);
+//                                    break;
+//                                case "mfo":
+//                                    Fournaise fournaise = new Fournaise("mfo",
+//                                            station.getNumDeLivraison(),
+//                                            station.getNumDeBoite());
+//                                    fournaise.setProduit(fournisseur1.getProduit());
+//                                    listeDeMachines.add(fournaise);
+//                                    break;
+//                                case "mfg":
+//                                    FournaiseDeGrillage fournaiseDeGrillage =
+//                                            new FournaiseDeGrillage("mfg",
+//                                                    station.getNumDeLivraison(),
+//                                                    station.getNumDeBoite());
+//                                    fournaiseDeGrillage.setProduit(fournisseur1.getProduit());
+//                                    listeDeMachines.add(fournaiseDeGrillage);
+//                                    break;
+//                                case "mfc":
+//                                    FournaiseDeCoupellation fournaiseDeCoupellation =
+//                                            new FournaiseDeCoupellation("mfc",
+//                                                    station.getNumDeLivraison(),
+//                                                    station.getNumDeBoite());
+//                                    fournaiseDeCoupellation.setProduit(fournisseur1.getProduit());
+//                                    listeDeMachines.add(fournaiseDeCoupellation);
+//                                    break;
+//                                case "mto":
+//                                    Touraille touraille = new Touraille("mto",
+//                                            station.getNumDeLivraison(),
+//                                            station.getNumDeBoite());
+//                                    listeDeMachines.add(touraille);
+//                                    touraille.setProduit(fournisseur1.getProduit());
+//                                    break;
+//                            }
+//                            System.out.println(listeDeMachines);
+////                            machine = new Machine(station.getNom(),
+////                                    fournisseur1.getProduit(),
+////                                    station.getNumDeLivraison(), station.getNumDeBoite());
+////                            System.out.println(machine.toString());
+//                        }
+//                    }
+//                }
+//
+//                //System.out.println(machine.toString());
+//                System.out.println(i + " : " + station.getNom() + "(" +
+//                        "[niveau]" + ") ");
+//
+//            }
+//        }
+//        return etatUsine;
+//    }
 
     public int getDebutMontant() {
         return debutMontant;
