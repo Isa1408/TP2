@@ -4,23 +4,23 @@ import tp2.Produit;
 
 public abstract class Station {
     private String nom;
-    private int numDeLivraison;
+    private int numStation;
     private int numDeBoite;
-//    private int numDeBoite1;
+    //    private int numDeBoite1;
     private Produit produit;
     private Produit [] produitDansBoites;
 
-    public Station (String nom, Produit [] produitDansBoites){
+    public Station (String nom){
         this.nom = nom;
-        this.produitDansBoites = produitDansBoites;
+        this.produitDansBoites = new Produit[2];
     }
 
     public Station(String nom, int numDeLivraison,
                    int numDeBoite) {
         this.nom = nom;
-        this.numDeLivraison = numDeLivraison;
+        this.numStation = numDeLivraison;
         this.numDeBoite = numDeBoite;
-        this.produitDansBoites = produitDansBoites;
+        this.produitDansBoites = new Produit[2];
     }
 
 //    public Station(String nom, Produit produit, int numDeLivraison,
@@ -41,15 +41,15 @@ public abstract class Station {
 
     //pas important
     public String toString(){
-        return this.nom + this.numDeLivraison + this.numDeBoite;
+        return this.nom + this.numStation + this.numDeBoite;
     }
 
     public String getNom() {
         return nom;
     }
 
-    public int getNumDeLivraison() {
-        return numDeLivraison;
+    public int getNumStation() {
+        return numStation;
     }
 
     public int getNumDeBoite() {

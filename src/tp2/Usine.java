@@ -16,8 +16,8 @@ public class Usine {
     int montantActuel;
     int nbrTours;
 
-   // private static final List<String> typesDeStations =
-   //         Arrays.asList("fou","mmo","mfo","mfg","mfc","mto","ven");
+    // private static final List<String> typesDeStations =
+    //         Arrays.asList("fou","mmo","mfo","mfg","mfc","mto","ven");
 
     public Usine( ArrayList<String> liste) {
         this.debutMontant = Integer.parseInt(liste.get(0));
@@ -38,7 +38,7 @@ public class Usine {
         String typeDeFournisseur = "";
         String typeDeFournisseurMaj = "";
         int[] tabTemp = null;
-        Produit [] produitDansBoites = new Produit[2];
+        //  Produit [] produitDansBoites = new Produit[2];
         listeDeStations = new ArrayList<>();
         listeDeFournisseurs = new ArrayList<>();
         listeDeMachines = new ArrayList<>();
@@ -61,21 +61,20 @@ public class Usine {
                     typeDeFournisseurMaj = typeDeFournisseur.toUpperCase();
                     leReste = leReste.substring(leReste.indexOf(" "));
                     tabTemp = descriptionLivraisons(leReste,
-                        numDeStationLivraison,
+                            numDeStationLivraison,
                             numDeBoiteLivraison);
 
                     Fournisseur fournisseur = new Fournisseur("fou",
                             Produit.valueOf(typeDeFournisseurMaj),
-                            tabTemp[0], tabTemp[1], produitDansBoites);
+                            tabTemp[0], tabTemp[1]);
 
                     listeDeStations.add(fournisseur);
                     listeDeFournisseurs.add(fournisseur);
                     break;
                 case "mmo":
                     tabTemp = descriptionLivraisons(leReste,
-                        numDeStationLivraison, numDeBoiteLivraison);
-                    Moulin moulin = new Moulin("mmo",
-                            tabTemp[0], tabTemp[1], produitDansBoites);
+                            numDeStationLivraison, numDeBoiteLivraison);
+                    Moulin moulin = new Moulin("mmo", tabTemp[0], tabTemp[1]);
 
                     listeDeStations.add(moulin);
                     listeDeMachines.add(moulin);
@@ -83,8 +82,7 @@ public class Usine {
                 case "mfo":
                     tabTemp = descriptionLivraisons(leReste,
                             numDeStationLivraison, numDeBoiteLivraison);
-                    Fournaise fournaise = new Fournaise("mfo",tabTemp[0],
-                            tabTemp[1], produitDansBoites);
+                    Fournaise fournaise = new Fournaise("mfo",tabTemp[0], tabTemp[1]);
 
                     listeDeStations.add(fournaise);
                     listeDeMachines.add(fournaise);
@@ -93,8 +91,7 @@ public class Usine {
                     tabTemp = descriptionLivraisons(leReste,
                             numDeStationLivraison, numDeBoiteLivraison);
                     FournaiseDeGrillage fournaiseDeGrillage =
-                            new FournaiseDeGrillage("mfg", tabTemp[0],
-                                    tabTemp[1], produitDansBoites);
+                            new FournaiseDeGrillage("mfg", tabTemp[0], tabTemp[1]);
 
                     listeDeStations.add(fournaiseDeGrillage);
                     listeDeMachines.add(fournaiseDeGrillage);
@@ -103,25 +100,23 @@ public class Usine {
                     tabTemp = descriptionLivraisons(leReste,
                             numDeStationLivraison, numDeBoiteLivraison);
                     FournaiseDeCoupellation fournaiseDeCoupellation =
-                            new FournaiseDeCoupellation("mfc", tabTemp[0],
-                                    tabTemp[1], produitDansBoites);
+                            new FournaiseDeCoupellation("mfc", tabTemp[0], tabTemp[1]);
 
                     listeDeStations.add(fournaiseDeCoupellation);
                     listeDeMachines.add(fournaiseDeCoupellation);
                     break;
                 case "mto":
                     tabTemp = descriptionLivraisons(leReste,
-                        numDeStationLivraison,
-                             numDeBoiteLivraison);
-                    Touraille touraille = new Touraille("mto",
-                            tabTemp[0], tabTemp[1], produitDansBoites);
+                            numDeStationLivraison,
+                            numDeBoiteLivraison);
+                    Touraille touraille = new Touraille("mto", tabTemp[0], tabTemp[1]);
 
                     listeDeStations.add(touraille);
                     listeDeMachines.add(touraille);
 
                     break;
                 case "ven":
-                    listeDeStations.add(new Vendeur("ven", produitDansBoites));
+                    listeDeStations.add(new Vendeur("ven"));
                     break;
             }
         }
@@ -129,8 +124,8 @@ public class Usine {
     }
 
     public static int[] descriptionLivraisons(String leReste,
-                                             int numDeStationLivraison,
-                                             int numDeBoiteLivraison){
+                                              int numDeStationLivraison,
+                                              int numDeBoiteLivraison){
         leReste = leReste.trim();
         numDeStationLivraison =
                 Integer.parseInt(leReste.substring(0,1));
@@ -152,13 +147,13 @@ public class Usine {
         for (int i = 0; i < listeDeStations.size(); i++) {
             System.out.println(listeDeStations);
             stationActuel = listeDeStations.get(i);
-            numDeLivraison = stationActuel.getNumDeLivraison();
+            numDeLivraison = stationActuel.getNumStation();
             numDeBoiteOuLivrer = stationActuel.getNumDeBoite();
             //il faut receuillir les fournisseurs en premier
             if (stationActuel.getNom().toString().equals("fou")) {
                 stationDeLivraison = listeDeStations.get(numDeLivraison);
                 System.out.println(stationDeLivraison.getClass().toString());
-               // System.out.println("La station de livraison: " +
+                // System.out.println("La station de livraison: " +
                 // stationDeLivraison);
 //                stationDeLivraison.setProduit(stationActuel.getProduit());
 
@@ -173,7 +168,7 @@ public class Usine {
 
         for (int i = 0; i < listeDeStations.size(); i++) {
             stationActuel = listeDeStations.get(i);
-            numDeLivraison = stationActuel.getNumDeLivraison();
+            numDeLivraison = stationActuel.getNumStation();
             numDeBoiteOuLivrer = stationActuel.getNumDeBoite();
             stationDeLivraison = listeDeStations.get(numDeLivraison);
             if (stationActuel.getNom().toString().equals("ven")){
@@ -202,6 +197,45 @@ public class Usine {
 //
 //           }
 
+    }
+
+    public static void setteurDeProduitStationsPropositionMireille(){
+        int numDeLivraison; //quelle stationDeLivraison
+        int numDeBoiteOuLivrer; //dans quelle boite on livre le produit (0,1)
+        Station stationDeLivraison;
+        Station stationActuel;
+        for (int i = 0; i < listeDeStations.size(); i++) {
+            System.out.println(listeDeStations);
+            stationActuel = listeDeStations.get(i);
+            numDeLivraison = stationActuel.getNumStation();
+            numDeBoiteOuLivrer = stationActuel.getNumDeBoite();
+            //il faut receuillir les fournisseurs en premier
+            if (stationActuel.getNom().toString().equals("fou")) {
+                stationDeLivraison = listeDeStations.get(numDeLivraison);
+                System.out.println(stationDeLivraison.getClass().toString());
+                // System.out.println("La station de livraison: " +
+                // stationDeLivraison);
+//                stationDeLivraison.setProduit(stationActuel.getProduit());
+
+                if(numDeBoiteOuLivrer == 0){
+                    stationDeLivraison.setProduitDansBoites1(stationActuel.getProduit());
+                } else if(numDeBoiteOuLivrer == 1){
+                    stationDeLivraison.setProduitDansBoites2(stationActuel.getProduit());
+                }
+            } else if (stationActuel.getNom().toString().equals("ven")) {
+                // TODO à compléter
+            } else {
+                stationDeLivraison = listeDeStations.get(numDeLivraison);
+//                stationDeLivraison.setProduit(stationActuel.getProduit());
+                //dans le but de voir quelle boite sera modifié
+                if(numDeBoiteOuLivrer == 0){
+                    stationDeLivraison.setProduitDansBoites1(stationActuel.getProduit());
+                }else if(numDeBoiteOuLivrer == 1){
+                    stationDeLivraison.setProduitDansBoites2(stationActuel.getProduit());
+                }
+            }
+        }
+//        System.out.println(listeDeStations);
     }
 
 
