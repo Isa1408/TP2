@@ -120,7 +120,7 @@ public class Usine {
                     break;
             }
         }
-        System.out.println("la liste de stations: "+listeDeStations);
+        //System.out.println("la liste de stations: "+listeDeStations);
     }
 
     public static int[] descriptionLivraisons(String leReste,
@@ -145,14 +145,14 @@ public class Usine {
         Station stationDeLivraison;
         Station stationActuel;
         for (int i = 0; i < listeDeStations.size(); i++) {
-            System.out.println(listeDeStations);
+           // System.out.println(listeDeStations);
             stationActuel = listeDeStations.get(i);
             numDeLivraison = stationActuel.getNumStation();
             numDeBoiteOuLivrer = stationActuel.getNumDeBoite();
             //il faut receuillir les fournisseurs en premier
             if (stationActuel.getNom().toString().equals("fou")) {
                 stationDeLivraison = listeDeStations.get(numDeLivraison);
-                System.out.println(stationDeLivraison.getClass().toString());
+                //System.out.println(stationDeLivraison.getClass().toString());
                 // System.out.println("La station de livraison: " +
                 // stationDeLivraison);
 //                stationDeLivraison.setProduit(stationActuel.getProduit());
@@ -164,7 +164,7 @@ public class Usine {
                 }
             }
         }
-//        System.out.println(listeDeStations);
+       // System.out.println(listeDeStations);
 
         for (int i = 0; i < listeDeStations.size(); i++) {
             stationActuel = listeDeStations.get(i);

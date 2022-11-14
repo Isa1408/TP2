@@ -6,7 +6,6 @@ public abstract class Station {
     private String nom;
     private int numStation;
     private int numDeBoite;
-    //    private int numDeBoite1;
     private Produit produit;
     private Produit [] produitDansBoites;
 
@@ -22,22 +21,6 @@ public abstract class Station {
         this.numDeBoite = numDeBoite;
         this.produitDansBoites = new Produit[2];
     }
-
-//    public Station(String nom, Produit produit, int numDeLivraison,
-//                   int numDeBoite) {
-//        this.nom = nom;
-//        this.produit = produit;
-//        this.numDeLivraison = numDeLivraison;
-//        this.numDeBoite = numDeBoite;
-//    }
-
-
-//    public Station(String nom, int numDeLivraison, int numDeBoite, int numDeBoite1) {
-//        this.nom = nom;
-//        this.numDeLivraison = numDeLivraison;
-//        this.numDeBoite = numDeBoite;
-//        this.numDeBoite1 = numDeBoite1;
-//    }
 
     //pas important
     public String toString(){
@@ -67,12 +50,6 @@ public abstract class Station {
     public Produit[] getProduitDansBoites() {
         return produitDansBoites;
     }
-
-//    public void setProduitDansBoites(Produit produit1, Produit produit2) {
-//        this.produitDansBoites[0] = produit1;
-//        this.produitDansBoites[1] = produit2;
-//    }
-
 
     public void setProduitDansBoites(Produit[] produitDansBoites) {
         this.produitDansBoites = produitDansBoites;

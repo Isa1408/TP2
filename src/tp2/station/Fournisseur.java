@@ -7,7 +7,4 @@ public class Fournisseur extends Station {
         super(nom, numStation, numBoite);
         setProduit(produit);
     }
-
-
-
 }
