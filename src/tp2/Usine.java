@@ -202,7 +202,7 @@ public class Usine {
 //           }
 
         }
-        System.out.println(listeDeStations);
+       // System.out.println(listeDeStations);
     }
     private static void actionDesFournisseurs(int numDeBoiteOuLivrer, Station stationDeLivraison, Station stationActuel, Produit produitDuFournisseur) {
         int nbrToursNecessaires;
@@ -246,100 +246,98 @@ public class Usine {
         // listeDeMachines qui sont deja cree en haut dans la methode
         // creerListeStation.
 
-//    public static String afficherEtatUsine(Usine usine){
-//        String etatUsine = "";
-//        ArrayList<Fournisseur> listeDeFournisseurs = new ArrayList<>();
-//        Fournisseur fournisseur;
-//        Machine machine;
-//        ArrayList<Machine> listeDeMachines = new ArrayList<>();
-//
-//
-//        for (int i = 0; i < listeDeStations.size(); i++) {
-//            Station station = listeDeStations.get(i);
-//
-//            if(station.getNom().toString().equals("fou")){
-//                Fournisseur fou = (Fournisseur) listeDeStations.get(i);
-//                fournisseur = new Fournisseur(fou.getNom(),
-//                        fou.getProduit(), fou.getNumDeLivraison(), fou.getNumDeBoite());
-//
-//                //ajouter les fournisseurs dans une liste
-//                listeDeFournisseurs.add(fournisseur);
-//
-//
-//                System.out.println(i + " : " + fou.getNom() + " F: 1 " +
-//                        fou.getProduit().nomAffichableSinguler + " (nbr de " +
-//                        "tours qu'il reste) " + "(" + fou.getNumDeLivraison() +
-//                        "," + fou.getNumDeBoite() + ")");
-//
-//            } else if(station.getNom().toString().equals("ven")){
-//                System.out.println(i + " : " + station.getNom());
-//            }else {
-//                if (!listeDeFournisseurs.isEmpty()){
-//                    for (int j = 0; j < listeDeFournisseurs.size(); j++) {
-//                        Fournisseur fournisseur1 = listeDeFournisseurs.get(j);
-//
-//                        //station.getNumDeLivraison() == i dans le if
-//                        //le commentaire ci-haut fonctionne pas
-//                        if (fournisseur1.getNumDeLivraison() == i){
-//                            switch (station.getNom()){
-//                                case "mmo":
-//                                    Moulin moulin = new Moulin("mmo",
-//                                            station.getNumDeLivraison(),
-//                                            station.getNumDeBoite());
-//                                    moulin.setProduit(fournisseur1.getProduit());
-//                                    listeDeMachines.add(moulin);
-//                                    break;
-//                                case "mfo":
-//                                    Fournaise fournaise = new Fournaise("mfo",
-//                                            station.getNumDeLivraison(),
-//                                            station.getNumDeBoite());
-//                                    fournaise.setProduit(fournisseur1.getProduit());
-//                                    listeDeMachines.add(fournaise);
-//                                    break;
-//                                case "mfg":
-//                                    FournaiseDeGrillage fournaiseDeGrillage =
-//                                            new FournaiseDeGrillage("mfg",
-//                                                    station.getNumDeLivraison(),
-//                                                    station.getNumDeBoite());
-//                                    fournaiseDeGrillage.setProduit(fournisseur1.getProduit());
-//                                    listeDeMachines.add(fournaiseDeGrillage);
-//                                    break;
-//                                case "mfc":
-//                                    FournaiseDeCoupellation fournaiseDeCoupellation =
-//                                            new FournaiseDeCoupellation("mfc",
-//                                                    station.getNumDeLivraison(),
-//                                                    station.getNumDeBoite());
-//                                    fournaiseDeCoupellation.setProduit(fournisseur1.getProduit());
-//                                    listeDeMachines.add(fournaiseDeCoupellation);
-//                                    break;
-//                                case "mto":
-//                                    Touraille touraille = new Touraille("mto",
-//                                            station.getNumDeLivraison(),
-//                                            station.getNumDeBoite());
-//                                    listeDeMachines.add(touraille);
-//                                    touraille.setProduit(fournisseur1.getProduit());
-//                                    break;
-//                            }
-//                            System.out.println(listeDeMachines);
-////                            machine = new Machine(station.getNom(),
-////                                    fournisseur1.getProduit(),
-////                                    station.getNumDeLivraison(), station.getNumDeBoite());
-////                            System.out.println(machine.toString());
-//                        }
-//                    }
-//                }
-//
-//                //System.out.println(machine.toString());
-//                System.out.println(i + " : " + station.getNom() + "(" +
-//                        "[niveau]" + ") ");
-//
-//            }
-//        }
-//        return etatUsine;
-   // }
+    public static String afficherEtatUsine() {
+        String etatUsine = "";
+        Fournisseur fournisseur;
+        Machine machine;
+        Boolean boite1Vide;
+        Boolean boite2Vide;
 
-   // }
+        for (int i = 0; i < listeDeStations.size(); i++) {
+            Station station = listeDeStations.get(i);
 
+            boite1Vide = false;
+            boite2Vide =false;
+            if (station.getNom().toString().equals("fou")) {
+                Station fou = listeDeStations.get(i);
+                System.out.println(i + " : " + fou.getNom() + " F: 1 " +
+                        fou.getProduit().nomAffichableSinguler + " (nbr de " +
+                        "tours qu'il reste) " + "(" + fou.getNumStation() +
+                        "," + fou.getNumDeBoite() + ")");
+
+            } else if (station.getNom().toString().equals("ven")) {
+                System.out.println(i + " : " + station.getNom());
+            } else {
+                afficherLesMachines(boite1Vide, boite2Vide, i, station);
+            }
+        }
+        return etatUsine;
+    }
+
+    private static void afficherLesMachines(Boolean boite1Vide, Boolean boite2Vide, int i, Station station) {
+        if (station.getNom().equals("mfo") || station.getNom().equals("mfg")){
+            if(station.getNom().equals("mfo")){
+                if(station.getProduitDansBoites1().equals(Produit.LINGOT_CUIVRE)){
+                    verifierLeContenuDesBoites(station, boite1Vide, boite2Vide, i, station.getProduitDansBoites2());
+                }else {
+                    afficherSelonLeContenuDesBoitesDeMFO(i, station);
+                }
+            }else {
+                verifierLeContenuDesBoites(station, boite1Vide, boite2Vide, i, station.getProduitDansBoites1());
+            }
+        }else {
+            afficherLesAutresMachines(i, station);
+        }
+    }
+
+    private static void afficherLesAutresMachines(int i, Station station) {
+        if(station.getProduitDansBoites1() == null){
+            System.out.println(i + " : " + station.getNom() + "(" +
+                    "[niveau]" + ") " + "B0: vide");
+        }else
+            System.out.println(i + " : " + station.getNom() + "(" +
+                    "[niveau]" + ") " + "B0: " + station.getProduitDansBoites1().nomAffichableSinguler);
+    }
+
+    private static void afficherSelonLeContenuDesBoitesDeMFO(int i, Station station) {
+        if(station.getProduitDansBoites1() == null){
+            System.out.println(i + " : " + station.getNom() + "(" +
+                    "[niveau]" + ") " + "B0: vide");
+        }else{
+            System.out.println(i + " : " + station.getNom() + "(" +
+                    "[niveau]" + ") " + "B0: " +
+                    station.getProduitDansBoites1());
+        }
+    }
+
+    private static void verifierLeContenuDesBoites(Station station, Boolean boite1Vide, Boolean boite2Vide, int i, Produit station1) {
+        if(station.getProduitDansBoites1() == null){
+            boite1Vide = true;
+        }
+        if(station.getProduitDansBoites2() == null){
+            boite2Vide = true;
+        }
+        if(boite2Vide && boite1Vide){
+            System.out.println(i + " : " + station.getNom() + "(" +
+                    "[niveau]" + ") " + " B0: vide B1: vide" );
+        }
+        if (boite1Vide && !boite2Vide){
+            System.out.println(i + " : " + station.getNom() + "(" +
+                    "[niveau]" + ") " + " B0: vide" +
+                    " B1: " + station.getProduitDansBoites2().nomAffichableSinguler);
+        }
+        if(boite2Vide && !boite1Vide){
+            System.out.println(i + " : " + station.getNom() + "(" +
+                    "[niveau]" + ") " + " B0: " + station1.nomAffichableSinguler +
+                    " B1: vide" );
+        }
+        if(!boite1Vide && !boite2Vide){
+            System.out.println(i + " : " + station.getNom() + "(" +
+                    "[niveau]" + ") " + " B0: " +
+                    station.getProduitDansBoites1().nomAffichableSinguler +
+                    " B1: " + station.getProduitDansBoites2().nomAffichableSinguler);
+        }
+    }
 
 
     public int getDebutMontant () {

@@ -12,19 +12,24 @@ public class Principal {
         int montantActuel = usine.montantActuel;
         int nbrTours = usine.nbrToursTest;
 
+
         do{
-            //afficher etat de l usine
+
             //scanner pour connaitre la prochaine etape que l utilisateur
                 // veut faire
 
             Usine.setteurDeProduitStations(); //set les boites des stations
                 // qui sont en lien direct avec le fournisseur (a revoir)
+            Usine.afficherEtatUsine();//afficher etat de l usine
 
             usine.setMontantActuel(montantActuel); //set le montant actuel
-            System.out.println(usine.montantActuel); //afficher le montant actuel
+            System.out.println(usine.montantActuel + "$"); //afficher le
+            // montant actuel
             nbrTours++;
             usine.setNbrTours(nbrTours); //set le nombre de tours
-        }while (usine.getNbrTours() < 10);
+            System.out.println();
+        }while (usine.getNbrTours() < 10); //until montantActuel <
+        // montantFinale || utilisateur a dit f
 
 
 

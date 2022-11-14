@@ -55,6 +55,13 @@ public abstract class Station {
         this.produitDansBoites = produitDansBoites;
     }
 
+    public Produit getProduitDansBoites1() {
+        return produitDansBoites[0];
+    }
+    public Produit getProduitDansBoites2() {
+        return produitDansBoites[1];
+    }
+
     public void setProduitDansBoites1(Produit produit1) {
         this.produitDansBoites[0] = produit1;
     }
