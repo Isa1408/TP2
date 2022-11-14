@@ -135,13 +135,6 @@ public class Usine {
         return tabTemp;
     }
 
-    public static void relierLesStationsAvecNbrDeTours() {
-
-
-    }
-
-
-
     public static void setteurDeProduitStations() {
         int numDeLivraison; //quelle stationDeLivraison
         int numDeBoiteOuLivrer; //dans quelle boite on livre le produit (0,1)
@@ -157,52 +150,9 @@ public class Usine {
 
                 Produit produitDuFournisseur = stationActuel.getProduit();
                 actionDesFournisseurs(numDeBoiteOuLivrer, stationDeLivraison, stationActuel, produitDuFournisseur);
-
-
-//                if(numDeBoiteOuLivrer == 0){
-//                    stationDeLivraison.setProduitDansBoites1(stationActuel.getProduit());
-//                }else if(numDeBoiteOuLivrer == 1){
-//                    stationDeLivraison.setProduitDansBoites2(stationActuel.getProduit());
-//                }
-//            }
             }
-            //System.out.println(listeDeStations);
-
-//        for (int i = 0; i < listeDeStations.size(); i++) {
-//            stationActuel = listeDeStations.get(i);
-//            numDeLivraison = stationActuel.getNumStation();
-//            numDeBoiteOuLivrer = stationActuel.getNumDeBoite();
-//            stationDeLivraison = listeDeStations.get(numDeLivraison);
-//            if (stationActuel.getNom().toString().equals("ven")){
-//                //a completer
-//
-//            }else if(!stationActuel.getNom().toString().equals("fou") &&
-//                    !stationActuel.getNom().toString().equals("ven")){
-//                stationDeLivraison = listeDeStations.get(numDeLivraison);
-////                stationDeLivraison.setProduit(stationActuel.getProduit());
-//
-//                //dans le but de voir quelle boite sera modifié
-//                if(numDeBoiteOuLivrer == 0){
-//                    stationDeLivraison.setProduitDansBoites1(stationActuel.getProduit());
-//                }else if(numDeBoiteOuLivrer == 1){
-//                    stationDeLivraison.setProduitDansBoites2(stationActuel.getProduit());
-//                }
-//
-//            }
-//        }
-//        System.out.println(listeDeStations);
-
-
-//           if (!(stationDeLivraison.getNom().toString().equals("fou") && stationDeLivraison.getNom().toString().equals("ven"))){
-//
-//           }else if (stationDeLivraison.getNom().toString().equals("ven")){
-//
-//           }else{
-//
-//           }
-
         }
-       // System.out.println(listeDeStations);
+
     }
     private static void actionDesFournisseurs(int numDeBoiteOuLivrer, Station stationDeLivraison, Station stationActuel, Produit produitDuFournisseur) {
         int nbrToursNecessaires;
@@ -239,12 +189,6 @@ public class Usine {
             }
         }
     }
-
-
-        //pas besoin de refaire une liste listeDeFournisseur, listeDeMachines.
-        //je peux travailler avec la listeDeStations, listeDeFournisseurs,
-        // listeDeMachines qui sont deja cree en haut dans la methode
-        // creerListeStation.
 
     public static String afficherEtatUsine() {
         String etatUsine = "";
