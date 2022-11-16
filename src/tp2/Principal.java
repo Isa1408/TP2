@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Principal {
     public static void main(String[] args) {
-        ArrayList<String> liste = lireFichier.listeString(); //il affiche la
+        ArrayList<String> liste = LireFichier.listeString(); //il affiche la
             // premiere ligne pour le fichier
         Usine usine = new Usine(liste);
         int debutMontant = usine.debutMontant;
@@ -18,7 +18,7 @@ public class Principal {
             //scanner pour connaitre la prochaine etape que l utilisateur
                 // veut faire
 
-            Usine.setteurDeProduitStations(); //set les boites des stations
+            Usine.setteurDeProduitStationsParLesFournisseurs(); //set les boites des stations
                 // qui sont en lien direct avec le fournisseur (a revoir)
             Usine.afficherEtatUsine();//afficher etat de l usine
 
@@ -28,8 +28,9 @@ public class Principal {
             nbrTours++;
             usine.setNbrTours(nbrTours); //set le nombre de tours
             System.out.println();
-        }while (usine.getNbrTours() < 10); //until montantActuel <
+        }while (usine.getNbrTours() < 16); //until montantActuel <
         // montantFinale || utilisateur a dit f
+
 
 
 

@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class lireFichier {
+public class LireFichier {
     /**
      * Demande à l'utilisateur le nom des fichiers.
      * @return retourne le nom du fichier saisi.

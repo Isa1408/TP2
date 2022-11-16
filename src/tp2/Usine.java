@@ -135,7 +135,7 @@ public class Usine {
         return tabTemp;
     }
 
-    public static void setteurDeProduitStations() {
+    public static void setteurDeProduitStationsParLesFournisseurs() {
         int numDeLivraison; //quelle stationDeLivraison
         int numDeBoiteOuLivrer; //dans quelle boite on livre le produit (0,1)
         Station stationDeLivraison;
@@ -144,7 +144,7 @@ public class Usine {
             stationActuel = listeDeStations.get(i);
             numDeLivraison = stationActuel.getNumStation();
             numDeBoiteOuLivrer = stationActuel.getNumDeBoite();
-            //il faut receuillir les fournisseurs en premier
+            //il faut recueillir les fournisseurs en premier
             if (stationActuel.getNom().toString().equals("fou")) {
                 stationDeLivraison = listeDeStations.get(numDeLivraison);
 
@@ -152,7 +152,6 @@ public class Usine {
                 actionDesFournisseurs(numDeBoiteOuLivrer, stationDeLivraison, stationActuel, produitDuFournisseur);
             }
         }
-
     }
     private static void actionDesFournisseurs(int numDeBoiteOuLivrer, Station stationDeLivraison, Station stationActuel, Produit produitDuFournisseur) {
         int nbrToursNecessaires;
@@ -160,42 +159,118 @@ public class Usine {
             case ("acanthite"):
                 nbrToursNecessaires =
                         DescriptionStations.FOURNISSEUR_ACANTHITE.getNbrTours();
-                validerLeNbrDeTours(numDeBoiteOuLivrer, stationDeLivraison, stationActuel, nbrToursNecessaires);
+                validerLeNbrDeTours(numDeBoiteOuLivrer, stationDeLivraison,
+                        stationActuel, nbrToursNecessaires);
                 break;
             case ("cassiterite"):
                 nbrToursNecessaires =
                         DescriptionStations.FOURNISSEUR_CASSITERITE.getNbrTours();
-                validerLeNbrDeTours(numDeBoiteOuLivrer, stationDeLivraison, stationActuel, nbrToursNecessaires);
+                validerLeNbrDeTours(numDeBoiteOuLivrer, stationDeLivraison,
+                        stationActuel, nbrToursNecessaires);
                 break;
             case ("chalcocite"):
                 nbrToursNecessaires =
                         DescriptionStations.FOURNISSEUR_CHALCOCITE.getNbrTours();
-                validerLeNbrDeTours(numDeBoiteOuLivrer, stationDeLivraison, stationActuel, nbrToursNecessaires);
+                validerLeNbrDeTours(numDeBoiteOuLivrer, stationDeLivraison,
+                        stationActuel, nbrToursNecessaires);
                 break;
             case ("charbon"):
                 nbrToursNecessaires =
                         DescriptionStations.FOURNISSEUR_CHARBON.getNbrTours();
-                validerLeNbrDeTours(numDeBoiteOuLivrer, stationDeLivraison, stationActuel, nbrToursNecessaires);
+                validerLeNbrDeTours(numDeBoiteOuLivrer, stationDeLivraison,
+                        stationActuel, nbrToursNecessaires);
                 break;
         }
     }
 
-    private static void validerLeNbrDeTours(int numDeBoiteOuLivrer, Station stationDeLivraison, Station stationActuel, int nbrToursNecessaires) {
-        if (nbrToursTest == nbrToursNecessaires) {
+    private static void validerLeNbrDeTours(int numDeBoiteOuLivrer,
+                                            Station stationDeLivraison,
+                                            Station stationActuel,
+                                            int nbrToursNecessaires) {
+        DescriptionStations descriptionStationsDeLivraison = trouverDescriptionStations(stationDeLivraison, stationActuel);
+        if ((nbrToursTest % nbrToursNecessaires == 0) && nbrToursTest != 0) {
             if (numDeBoiteOuLivrer == 0) {
                 stationDeLivraison.setProduitDansBoites1(stationActuel.getProduit());
+                if(descriptionStationsDeLivraison != null){
+                    descriptionStationsDeLivraison.getBoite().setQteActuelProduit1(1);
+                }
             } else if (numDeBoiteOuLivrer == 1) {
+                if(descriptionStationsDeLivraison != null){
+                    descriptionStationsDeLivraison.getBoite().setQteActuelProduit2(1);
+                }
                 stationDeLivraison.setProduitDansBoites2(stationActuel.getProduit());
             }
         }
     }
 
-    public static String afficherEtatUsine() {
+    private static DescriptionStations trouverDescriptionStations(Station stationDeLivraison, Station stationActuel) {
+        Produit produitALivrer;
+        DescriptionStations descriptionStationsDeLivraison = null;
+
+        switch (stationDeLivraison.getNom().toString()){
+            case "mmo":
+                produitALivrer = stationActuel.getProduit();
+                descriptionStationsDeLivraison = DescriptionStations.valueOf(
+                        "MOULIN_"+produitALivrer);
+                break;
+            case "mfo":
+                produitALivrer = stationActuel.getProduit();
+                descriptionStationsDeLivraison = DescriptionStations.valueOf(
+                        "FOURNAISE_"+produitALivrer);
+                break;
+            case "mfg":
+                produitALivrer = stationActuel.getProduit();
+                descriptionStationsDeLivraison = DescriptionStations.valueOf(
+                        "FOURNAISE_GRILLAGE_"+produitALivrer);
+                break;
+            case "mfc":
+                produitALivrer = stationActuel.getProduit();
+                descriptionStationsDeLivraison = DescriptionStations.valueOf(
+                        "FOURNAISE_COUPELLATION_"+produitALivrer);
+                break;
+            case "mto":
+                produitALivrer = stationActuel.getProduit();
+                descriptionStationsDeLivraison = DescriptionStations.valueOf(
+                        "TOURAILLE_"+produitALivrer);
+                break;
+        }
+        return descriptionStationsDeLivraison;
+    }
+
+    private static DescriptionStations trouverDescriptionStations(Station stationActuel, Produit produitDansBoite) {
+        DescriptionStations descriptionStationsDeLivraison = null;
+
+        switch (stationActuel.getNom().toString()){
+            case "mmo":
+                descriptionStationsDeLivraison = DescriptionStations.valueOf(
+                        "MOULIN_"+produitDansBoite);
+                break;
+            case "mfo":
+                descriptionStationsDeLivraison = DescriptionStations.valueOf(
+                        "FOURNAISE_"+produitDansBoite);
+                break;
+            case "mfg":
+                descriptionStationsDeLivraison = DescriptionStations.valueOf(
+                        "FOURNAISE_GRILLAGE_"+produitDansBoite);
+                break;
+            case "mfc":
+                descriptionStationsDeLivraison = DescriptionStations.valueOf(
+                        "FOURNAISE_COUPELLATION_"+produitDansBoite);
+                break;
+            case "mto":
+                descriptionStationsDeLivraison = DescriptionStations.valueOf(
+                        "TOURAILLE_"+produitDansBoite);
+                break;
+        }
+        return descriptionStationsDeLivraison;
+    }
+
+    public static void afficherEtatUsine() {
         String etatUsine = "";
         Fournisseur fournisseur;
         Machine machine;
-        Boolean boite1Vide;
-        Boolean boite2Vide;
+        boolean boite1Vide;
+        boolean boite2Vide;
 
         for (int i = 0; i < listeDeStations.size(); i++) {
             Station station = listeDeStations.get(i);
@@ -215,7 +290,6 @@ public class Usine {
                 afficherLesMachines(boite1Vide, boite2Vide, i, station);
             }
         }
-        return etatUsine;
     }
 
     private static void afficherLesMachines(Boolean boite1Vide, Boolean boite2Vide, int i, Station station) {
@@ -235,26 +309,39 @@ public class Usine {
     }
 
     private static void afficherLesAutresMachines(int i, Station station) {
-        if(station.getProduitDansBoites1() == null){
-            System.out.println(i + " : " + station.getNom() + "(" +
-                    "[niveau]" + ") " + "B0: vide");
-        }else
-            System.out.println(i + " : " + station.getNom() + "(" +
-                    "[niveau]" + ") " + "B0: " + station.getProduitDansBoites1().nomAffichableSinguler);
-    }
-
-    private static void afficherSelonLeContenuDesBoitesDeMFO(int i, Station station) {
+        int nbrProduits;
         if(station.getProduitDansBoites1() == null){
             System.out.println(i + " : " + station.getNom() + "(" +
                     "[niveau]" + ") " + "B0: vide");
         }else{
-            System.out.println(i + " : " + station.getNom() + "(" +
+           nbrProduits =
+                   trouverDescriptionStations(station, station.getProduitDansBoites1()).getBoite().getQteActuelProduit1();
+           System.out.println(i + " : " + station.getNom() + "(" +
                     "[niveau]" + ") " + "B0: " +
-                    station.getProduitDansBoites1());
+                   station.getProduitDansBoites1().toString(nbrProduits));
         }
     }
 
-    private static void verifierLeContenuDesBoites(Station station, Boolean boite1Vide, Boolean boite2Vide, int i, Produit station1) {
+    private static void afficherSelonLeContenuDesBoitesDeMFO(int i, Station station) {
+        int nbrProduits;
+        if(station.getProduitDansBoites1() == null){
+            System.out.println(i + " : " + station.getNom() + "(" +
+                    "[niveau]" + ") " + "B0: vide");
+        }else{
+            nbrProduits =
+                    trouverDescriptionStations(station, station.getProduitDansBoites1()).getBoite().getQteActuelProduit1();
+            System.out.println(i + " : " + station.getNom() + "(" +
+                    "[niveau]" + ") " + "B0: " +
+                    station.getProduitDansBoites1().toString(nbrProduits));
+        }
+    }
+
+    private static void verifierLeContenuDesBoites(Station station,
+                                                   Boolean boite1Vide,
+                                                   Boolean boite2Vide,
+                                                   int i, Produit station1) {
+        int nbrProduits1;
+        int nbrProduits2;
         if(station.getProduitDansBoites1() == null){
             boite1Vide = true;
         }
@@ -266,23 +353,34 @@ public class Usine {
                     "[niveau]" + ") " + " B0: vide B1: vide" );
         }
         if (boite1Vide && !boite2Vide){
+            nbrProduits2 =
+                    trouverDescriptionStations(station,
+                            station.getProduitDansBoites2()).getBoite().getQteActuelProduit2();
             System.out.println(i + " : " + station.getNom() + "(" +
                     "[niveau]" + ") " + " B0: vide" +
-                    " B1: " + station.getProduitDansBoites2().nomAffichableSinguler);
+                    " B1: " + station.getProduitDansBoites2().toString(nbrProduits2));
         }
         if(boite2Vide && !boite1Vide){
+            nbrProduits1 =
+                    trouverDescriptionStations(station,
+                            station.getProduitDansBoites1()).getBoite().getQteActuelProduit1();
             System.out.println(i + " : " + station.getNom() + "(" +
-                    "[niveau]" + ") " + " B0: " + station1.nomAffichableSinguler +
+                    "[niveau]" + ") " + " B0: " + station.getProduitDansBoites1().toString(nbrProduits1) +
                     " B1: vide" );
         }
         if(!boite1Vide && !boite2Vide){
+            nbrProduits1 =
+                    trouverDescriptionStations(station,
+                            station.getProduitDansBoites1()).getBoite().getQteActuelProduit1();
+            nbrProduits2 =
+                    trouverDescriptionStations(station,
+                            station.getProduitDansBoites2()).getBoite().getQteActuelProduit2();
             System.out.println(i + " : " + station.getNom() + "(" +
                     "[niveau]" + ") " + " B0: " +
-                    station.getProduitDansBoites1().nomAffichableSinguler +
-                    " B1: " + station.getProduitDansBoites2().nomAffichableSinguler);
+                    station.getProduitDansBoites1().toString(nbrProduits1) +
+                    " B1: " + station.getProduitDansBoites2().toString(nbrProduits2));
         }
     }
-
 
     public int getDebutMontant () {
             return debutMontant;
