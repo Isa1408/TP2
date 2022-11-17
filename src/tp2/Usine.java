@@ -201,7 +201,8 @@ public class Usine {
                                           Station stationDeLivraison,
                                           Station stationActuel,
                                           int nbrProduitLivre) {
-        DescriptionStations descriptionStationsDeLivraison = trouverDescriptionStations(stationDeLivraison, stationActuel);
+        DescriptionStations descriptionStationsDeLivraison =
+                trouverDescriptionStations(stationDeLivraison, stationActuel);
         if (numDeBoiteOuLivrer == 0) {
             stationDeLivraison.setProduitDansBoites1(stationActuel.getProduit());
             if(descriptionStationsDeLivraison != null){
@@ -263,75 +264,141 @@ public class Usine {
             stationActuel = listeDeStations.get(i);
 
             if(!(stationActuel.getNom().toString().equals("fou"))){
-                descriptionStations = trouverDescriptionStations(stationActuel,
-                        stationActuel.getProduitDansBoites1());
-                nbrActuelProduits1 =
-                        descriptionStations.getBoite().getQteActuelProduit1();
+                try{
+                    descriptionStations = trouverDescriptionStations(stationActuel,
+                            stationActuel.getProduitDansBoites1());
+                    nbrActuelProduits1 =
+                            descriptionStations.getBoite().getQteActuelProduit1();
 
-                //get boite2 des machines qui ont deux boites
-                if(descriptionStations == DescriptionStations.FOURNAISE_LINGOTS_CUIVRE
-                        || stationActuel.getNom().equals("mfg")){
-                    nbrActuelProduits2 =
-                            descriptionStations.getBoite().getQteActuelProduit2();
-                    boite2Existe = true;
+                    //get boite2 des machines qui ont deux boites
+                    if(descriptionStations == DescriptionStations.FOURNAISE_LINGOTS_CUIVRE
+                            || stationActuel.getNom().equals("mfg")){
+                        nbrActuelProduits2 =
+                                descriptionStations.getBoite().getQteActuelProduit2();
+                        boite2Existe = true;
 
-                    //je veux savoir si la boite 2 est complete
-                    if(nbrActuelProduits2 >= descriptionStations.getBoite().getNbrProduit2Necessaire()){
-                        boite2Complet = true;
+                        //je veux savoir si la boite 2 est complete
+                        if(nbrActuelProduits2 >= descriptionStations.getBoite().getNbrProduit2Necessaire()){
+                            boite2Complet = true;
+                        }else {
+                            descriptionStations.getBoite().setComplet(false);
+                        }
+                    }
+
+                    // je veux savoir si la boite 1 est complete
+                    if(nbrActuelProduits1 >= descriptionStations.getBoite().getNbrProduit1Necessaire()){
+                        boite1Complet = true;
                     }else {
                         descriptionStations.getBoite().setComplet(false);
                     }
-                }
 
-                // je veux savoir si la boite 1 est complete
-                if(nbrActuelProduits1 >= descriptionStations.getBoite().getNbrProduit1Necessaire()){
-                    boite1Complet = true;
-                }else {
-                    descriptionStations.getBoite().setComplet(false);
-                }
-
-                if(boite2Existe){
-                    if(boite1Complet && boite2Complet){
-                        //TODO commencer le comptage du nbr de tours
-                        descriptionStations.getBoite().setComplet(true);
-                        descriptionStations.getBoite().setCompteurDeTours(1);
+                    if(boite2Existe){
+                        if(boite1Complet && boite2Complet){
+                            //TODO commencer le comptage du nbr de tours
+                            descriptionStations.getBoite().setComplet(true);
+                            descriptionStations.getBoite().setCompteurDeTours(1);
+                        }
+                    }else {
+                        if(boite1Complet){
+                            //TODO commencer le comptage du nbr de tours
+                            descriptionStations.getBoite().setComplet(true);
+                            descriptionStations.getBoite().setCompteurDeTours(1);
+                        }
                     }
-                }else {
-                    if(boite1Complet){
-                        //TODO commencer le comptage du nbr de tours
-                        descriptionStations.getBoite().setComplet(true);
-                        descriptionStations.getBoite().setCompteurDeTours(1);
+
+                    //TODO valider si mon nbr de tours pour chaque machine est
+                    // equivalent aux nbr de tours necessaires
+                    int nbrDeToursActuelDeLaMachine;
+                    int nbrDeToursNecessaire;
+                    Station stationDeLivraison;
+                    int numBoite;
+                    int nbrProduitLivre;
+                    //Produit produitLivre;
+                    DescriptionStations descriptionStationLivraison;
+                    nbrDeToursActuelDeLaMachine =
+                            descriptionStations.getBoite().getCompteurDeTours();
+                    nbrDeToursNecessaire = descriptionStations.nbrTours;
+
+                    if(nbrDeToursActuelDeLaMachine >= 2){
+                        //TODO set le nbr de tours a 0
+                        descriptionStations.getBoite().setCompteurDeTours(- nbrDeToursActuelDeLaMachine);
+                        stationDeLivraison =
+                                listeDeStations.get(stationActuel.getNumStation());
+                        numBoite = stationActuel.getNumDeBoite();
+
+                        nbrProduitLivre = descriptionStations.getNbrProduitLivre();
+                        Produit produitALivrer =
+                                descriptionStations.getLivre(); // pas bon
+                        // pour la methode pcq c le produit de boite 2
+
+                        livrerLesProduits(numBoite, stationDeLivraison, stationActuel
+                                , nbrProduitLivre,
+                                stationDeLivraison.getProduitDansBoites1(), produitALivrer);
+
                     }
+                }catch (Exception e){
+                    System.out.println("boite est null");
                 }
 
-                //TODO valider si mon nbr de tours pour chaque machine est
-                // equivalent aux nbr de tours necessaires
-                int nbrDeToursActuelDeLaMachine;
-                int nbrDeToursNecessaire;
-                Station stationDeLivraison;
-                int numBoite;
-                int nbrProduitLivre;
-                Produit produitLivre;
-                DescriptionStations descriptionStationLivraison;
-                nbrDeToursActuelDeLaMachine =
-                        descriptionStations.getBoite().getCompteurDeTours();
-                nbrDeToursNecessaire = descriptionStations.nbrTours;
-
-                if(nbrDeToursActuelDeLaMachine == nbrDeToursNecessaire){
-                    //TODO set le nbr de tours a 0
-                    descriptionStations.getBoite().setCompteurDeTours(- nbrDeToursActuelDeLaMachine);
-                    stationDeLivraison =
-                            listeDeStations.get(stationActuel.getNumStation());
-                    numBoite = stationActuel.getNumDeBoite();
-                    nbrProduitLivre = descriptionStations.getNbrProduitLivre();
-                    livrerLesProduits(numBoite, stationDeLivraison, stationActuel
-                            , nbrProduitLivre);
-
-                }
             }
         }
     }
 
+    private static void livrerLesProduits(int numDeBoiteOuLivrer,
+                                          Station stationDeLivraison,
+                                          Station stationActuel,
+                                          int nbrProduitLivre,
+                                          Produit produitBoite1,
+                                          Produit produitALivrer) {
+        DescriptionStations descriptionStationsDeLivraison =
+                trouverDescriptionStations(stationDeLivraison, stationActuel,
+                        produitBoite1);
+        if (numDeBoiteOuLivrer == 0) {
+            stationDeLivraison.setProduitDansBoites1(produitALivrer);
+            if(descriptionStationsDeLivraison != null){
+                descriptionStationsDeLivraison.getBoite().setQteActuelProduit1(nbrProduitLivre);
+            }
+        } else if (numDeBoiteOuLivrer == 1) {
+            if(descriptionStationsDeLivraison != null){
+                descriptionStationsDeLivraison.getBoite().setQteActuelProduit2(nbrProduitLivre);
+            }
+            stationDeLivraison.setProduitDansBoites2(produitALivrer);
+        }
+    }
+
+    private static DescriptionStations trouverDescriptionStations(Station stationDeLivraison, Station stationActuel, Produit produitBoite1) {
+        //Produit produitALivrer;
+        DescriptionStations descriptionStationsDeLivraison = null;
+
+        switch (stationDeLivraison.getNom().toString()){
+            case "mmo":
+                //produitBoite1 = stationActuel.getProduit();
+                descriptionStationsDeLivraison = DescriptionStations.valueOf(
+                        "MOULIN_"+produitBoite1);
+                break;
+            case "mfo":
+                //produitBoite1 = stationActuel.getProduit();
+                descriptionStationsDeLivraison = DescriptionStations.valueOf(
+                        "FOURNAISE_"+produitBoite1);
+                break;
+            case "mfg":
+                //produitBoite1 = stationActuel.getProduit();
+                descriptionStationsDeLivraison = DescriptionStations.valueOf(
+                        "FOURNAISE_GRILLAGE_"+produitBoite1);
+                break;
+            case "mfc":
+                //produitBoite1 = stationActuel.getProduit();
+                descriptionStationsDeLivraison = DescriptionStations.valueOf(
+                        "FOURNAISE_COUPELLATION_"+produitBoite1);
+                break;
+            case "mto":
+                //produitBoite1 = stationActuel.getProduit();
+                descriptionStationsDeLivraison = DescriptionStations.valueOf(
+                        "TOURAILLE_"+produitBoite1);
+                break;
+        }
+        return descriptionStationsDeLivraison;
+    }
     //pour l affichage
     private static DescriptionStations trouverDescriptionStations(Station stationActuel, Produit produitDansBoite) {
         DescriptionStations descriptionStationsDeLivraison = null;
@@ -454,7 +521,7 @@ public class Usine {
         if (boite1Vide && !boite2Vide){
             nbrProduits2 =
                     trouverDescriptionStations(station,
-                            station.getProduitDansBoites2()).getBoite().getQteActuelProduit2();
+                            station.getProduitDansBoites1()).getBoite().getQteActuelProduit2();
             System.out.println(i + " : " + station.getNom() + "(" +
                     "[niveau]" + ") " + " B0: vide" +
                     " B1: " + station.getProduitDansBoites2().toString(nbrProduits2));
@@ -473,7 +540,7 @@ public class Usine {
                             station.getProduitDansBoites1()).getBoite().getQteActuelProduit1();
             nbrProduits2 =
                     trouverDescriptionStations(station,
-                            station.getProduitDansBoites2()).getBoite().getQteActuelProduit2();
+                            station.getProduitDansBoites1()).getBoite().getQteActuelProduit2();
             System.out.println(i + " : " + station.getNom() + "(" +
                     "[niveau]" + ") " + " B0: " +
                     station.getProduitDansBoites1().toString(nbrProduits1) +

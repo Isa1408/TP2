@@ -20,6 +20,8 @@ public class Principal {
 
             Usine.setteurDeProduitStationsParLesFournisseurs(); //set les boites des stations
                 // qui sont en lien direct avec le fournisseur (a revoir)
+            System.out.println(Usine.listeDeStations);
+            Usine.verifierSiBoiteEstComplet();
             Usine.afficherEtatUsine();//afficher etat de l usine
 
             usine.setMontantActuel(montantActuel); //set le montant actuel
