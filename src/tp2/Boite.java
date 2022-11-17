@@ -1,8 +1,6 @@
 package tp2;
 
 public class Boite {
-//    private int boite1;
-//    private int boite2;
     private Produit produit1;
     private Produit produit2;
     private int nbrProduit1Necessaire;
@@ -42,12 +40,20 @@ public class Boite {
         this.qteActuelProduit2 = this.qteActuelProduit1 + qteActuelProduit2;
     }
 
+    public int getNbrProduit1Necessaire() {
+        return nbrProduit1Necessaire;
+    }
+
+    public int getNbrProduit2Necessaire() {
+        return nbrProduit2Necessaire;
+    }
+
     public int getCompteurDeTours() {
         return compteurDeTours;
     }
 
     public void setCompteurDeTours(int compteurDeTours) {
-        this.compteurDeTours = compteurDeTours;
+        this.compteurDeTours = this.compteurDeTours + compteurDeTours;
     }
 
     public boolean isComplet() {

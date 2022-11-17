@@ -28,7 +28,8 @@ public class Principal {
             nbrTours++;
             usine.setNbrTours(nbrTours); //set le nombre de tours
             System.out.println();
-        }while (usine.getNbrTours() < 16); //until montantActuel <
+            System.out.println(Usine.listeDeStations);
+        }while (usine.getNbrTours() < 25); //until montantActuel <
         // montantFinale || utilisateur a dit f
 
 

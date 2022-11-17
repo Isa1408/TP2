@@ -135,6 +135,9 @@ public class Usine {
         return tabTemp;
     }
 
+    //les actions des fournisseurs
+    // (setteurDeProduitStationsParLesFournisseurs, actionDesFournisseurs,
+    // validerLeNbrDeTours, trouverDescriptionStations(station, station))
     public static void setteurDeProduitStationsParLesFournisseurs() {
         int numDeLivraison; //quelle stationDeLivraison
         int numDeBoiteOuLivrer; //dans quelle boite on livre le produit (0,1)
@@ -187,19 +190,28 @@ public class Usine {
                                             Station stationDeLivraison,
                                             Station stationActuel,
                                             int nbrToursNecessaires) {
-        DescriptionStations descriptionStationsDeLivraison = trouverDescriptionStations(stationDeLivraison, stationActuel);
         if ((nbrToursTest % nbrToursNecessaires == 0) && nbrToursTest != 0) {
-            if (numDeBoiteOuLivrer == 0) {
-                stationDeLivraison.setProduitDansBoites1(stationActuel.getProduit());
-                if(descriptionStationsDeLivraison != null){
-                    descriptionStationsDeLivraison.getBoite().setQteActuelProduit1(1);
-                }
-            } else if (numDeBoiteOuLivrer == 1) {
-                if(descriptionStationsDeLivraison != null){
-                    descriptionStationsDeLivraison.getBoite().setQteActuelProduit2(1);
-                }
-                stationDeLivraison.setProduitDansBoites2(stationActuel.getProduit());
+
+            livrerLesProduits(numDeBoiteOuLivrer, stationDeLivraison,
+                    stationActuel, 1);
+        }
+    }
+
+    private static void livrerLesProduits(int numDeBoiteOuLivrer,
+                                          Station stationDeLivraison,
+                                          Station stationActuel,
+                                          int nbrProduitLivre) {
+        DescriptionStations descriptionStationsDeLivraison = trouverDescriptionStations(stationDeLivraison, stationActuel);
+        if (numDeBoiteOuLivrer == 0) {
+            stationDeLivraison.setProduitDansBoites1(stationActuel.getProduit());
+            if(descriptionStationsDeLivraison != null){
+                descriptionStationsDeLivraison.getBoite().setQteActuelProduit1(nbrProduitLivre);
             }
+        } else if (numDeBoiteOuLivrer == 1) {
+            if(descriptionStationsDeLivraison != null){
+                descriptionStationsDeLivraison.getBoite().setQteActuelProduit2(nbrProduitLivre);
+            }
+            stationDeLivraison.setProduitDansBoites2(stationActuel.getProduit());
         }
     }
 
@@ -237,6 +249,90 @@ public class Usine {
         return descriptionStationsDeLivraison;
     }
 
+    public static void verifierSiBoiteEstComplet(){
+        Station stationActuel;
+        DescriptionStations descriptionStations; //pour trouver l enum de
+        // descriptionStations grace au premier produit (station actuelle)
+        int nbrActuelProduits1;
+        int nbrActuelProduits2;
+        boolean boite1Complet = false;
+        boolean boite2Complet = false;
+        boolean boite2Existe = false;
+
+        for (int i = 0; i < listeDeStations.size(); i++) {
+            stationActuel = listeDeStations.get(i);
+
+            if(!(stationActuel.getNom().toString().equals("fou"))){
+                descriptionStations = trouverDescriptionStations(stationActuel,
+                        stationActuel.getProduitDansBoites1());
+                nbrActuelProduits1 =
+                        descriptionStations.getBoite().getQteActuelProduit1();
+
+                //get boite2 des machines qui ont deux boites
+                if(descriptionStations == DescriptionStations.FOURNAISE_LINGOTS_CUIVRE
+                        || stationActuel.getNom().equals("mfg")){
+                    nbrActuelProduits2 =
+                            descriptionStations.getBoite().getQteActuelProduit2();
+                    boite2Existe = true;
+
+                    //je veux savoir si la boite 2 est complete
+                    if(nbrActuelProduits2 >= descriptionStations.getBoite().getNbrProduit2Necessaire()){
+                        boite2Complet = true;
+                    }else {
+                        descriptionStations.getBoite().setComplet(false);
+                    }
+                }
+
+                // je veux savoir si la boite 1 est complete
+                if(nbrActuelProduits1 >= descriptionStations.getBoite().getNbrProduit1Necessaire()){
+                    boite1Complet = true;
+                }else {
+                    descriptionStations.getBoite().setComplet(false);
+                }
+
+                if(boite2Existe){
+                    if(boite1Complet && boite2Complet){
+                        //TODO commencer le comptage du nbr de tours
+                        descriptionStations.getBoite().setComplet(true);
+                        descriptionStations.getBoite().setCompteurDeTours(1);
+                    }
+                }else {
+                    if(boite1Complet){
+                        //TODO commencer le comptage du nbr de tours
+                        descriptionStations.getBoite().setComplet(true);
+                        descriptionStations.getBoite().setCompteurDeTours(1);
+                    }
+                }
+
+                //TODO valider si mon nbr de tours pour chaque machine est
+                // equivalent aux nbr de tours necessaires
+                int nbrDeToursActuelDeLaMachine;
+                int nbrDeToursNecessaire;
+                Station stationDeLivraison;
+                int numBoite;
+                int nbrProduitLivre;
+                Produit produitLivre;
+                DescriptionStations descriptionStationLivraison;
+                nbrDeToursActuelDeLaMachine =
+                        descriptionStations.getBoite().getCompteurDeTours();
+                nbrDeToursNecessaire = descriptionStations.nbrTours;
+
+                if(nbrDeToursActuelDeLaMachine == nbrDeToursNecessaire){
+                    //TODO set le nbr de tours a 0
+                    descriptionStations.getBoite().setCompteurDeTours(- nbrDeToursActuelDeLaMachine);
+                    stationDeLivraison =
+                            listeDeStations.get(stationActuel.getNumStation());
+                    numBoite = stationActuel.getNumDeBoite();
+                    nbrProduitLivre = descriptionStations.getNbrProduitLivre();
+                    livrerLesProduits(numBoite, stationDeLivraison, stationActuel
+                            , nbrProduitLivre);
+
+                }
+            }
+        }
+    }
+
+    //pour l affichage
     private static DescriptionStations trouverDescriptionStations(Station stationActuel, Produit produitDansBoite) {
         DescriptionStations descriptionStationsDeLivraison = null;
 
@@ -265,6 +361,9 @@ public class Usine {
         return descriptionStationsDeLivraison;
     }
 
+    // affichage de l usine( afficherEtatUsine, afficherLesMachines,
+    // afficherLesAutresMachines, afficherSelonLeContenuDesBoitesDeMFO,
+    // verifierLeContenuDesBoites )
     public static void afficherEtatUsine() {
         String etatUsine = "";
         Fournisseur fournisseur;

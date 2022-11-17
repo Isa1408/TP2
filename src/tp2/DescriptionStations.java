@@ -54,6 +54,7 @@ public enum DescriptionStations {
   public Boite boite;
   public Produit livre;
   public int nbrProduitLivre;
+  public boolean nbrToursComplet = false;
 
   //pour le vendeur
   DescriptionStations(String nomMachine, Boite boite) {
@@ -104,5 +105,13 @@ public enum DescriptionStations {
 
   public int getNbrProduitLivre() {
     return nbrProduitLivre;
+  }
+
+  public boolean isNbrToursComplet() {
+    return nbrToursComplet;
+  }
+
+  public void setNbrToursComplet(boolean nbrToursComplet) {
+    this.nbrToursComplet = nbrToursComplet;
   }
 }
