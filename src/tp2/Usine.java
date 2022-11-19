@@ -256,11 +256,12 @@ public class Usine {
         // descriptionStations grace au premier produit (station actuelle)
         int nbrActuelProduits1;
         int nbrActuelProduits2;
-        boolean boite1Complet = false;
-        boolean boite2Complet = false;
-        boolean boite2Existe = false;
+
 
         for (int i = 0; i < listeDeStations.size(); i++) {
+            boolean boite1Complet = false;
+            boolean boite2Complet = false;
+            boolean boite2Existe = false;
             stationActuel = listeDeStations.get(i);
 
             if(!(stationActuel.getNom().toString().equals("fou"))){
@@ -341,7 +342,7 @@ public class Usine {
 
                     }
                 }catch (Exception e){
-                    System.out.println("boite est null");
+                   // System.out.println("boite est null");
                 }
 
             }
@@ -488,7 +489,7 @@ public class Usine {
 
     private static void afficherLesAutresMachines(int i, Station station) {
         int nbrProduits;
-        if(station.getProduitDansBoites1() == null){
+        if(station.getProduitDansBoites1() == null ){
             System.out.println(i + " : " + station.getNom() + "(" +
                     "[niveau]" + ") " + "B0: vide");
         }else{
