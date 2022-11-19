@@ -319,9 +319,7 @@ public class Usine {
                             descriptionStations.getBoite().getCompteurDeTours();
                     nbrDeToursNecessaire = descriptionStations.nbrTours;
 
-                    if(nbrDeToursActuelDeLaMachine >= 2){
-                        //TODO set le nbr de tours a 0
-                        descriptionStations.getBoite().setCompteurDeTours(- nbrDeToursActuelDeLaMachine);
+                    if(nbrDeToursActuelDeLaMachine >= nbrDeToursNecessaire){
                         stationDeLivraison =
                                 listeDeStations.get(stationActuel.getNumStation());
                         numBoite = stationActuel.getNumDeBoite();
@@ -334,6 +332,12 @@ public class Usine {
                         livrerLesProduits(numBoite, stationDeLivraison, stationActuel
                                 , nbrProduitLivre,
                                 stationDeLivraison.getProduitDansBoites1(), produitALivrer);
+                        //TODO set le nbr de tours a 0
+                        descriptionStations.getBoite().setCompteurDeTours(- nbrDeToursActuelDeLaMachine);
+                        descriptionStations.getBoite().setQteActuelProduit1(- descriptionStations.getBoite().getNbrProduit1Necessaire());
+                        if(boite2Existe){
+                            descriptionStations.getBoite().setQteActuelProduit2(- descriptionStations.getBoite().getNbrProduit2Necessaire());
+                        }
 
                     }
                 }catch (Exception e){
@@ -350,9 +354,17 @@ public class Usine {
                                           int nbrProduitLivre,
                                           Produit produitBoite1,
                                           Produit produitALivrer) {
-        DescriptionStations descriptionStationsDeLivraison =
-                trouverDescriptionStations(stationDeLivraison, stationActuel,
-                        produitBoite1);
+        DescriptionStations descriptionStationsDeLivraison;
+        if (produitBoite1 == null){
+            descriptionStationsDeLivraison =
+                    trouverDescriptionStations(stationDeLivraison, stationActuel,
+                            produitALivrer);
+        }else {
+            descriptionStationsDeLivraison =
+                    trouverDescriptionStations(stationDeLivraison, stationActuel,
+                            produitBoite1);
+        }
+
         if (numDeBoiteOuLivrer == 0) {
             stationDeLivraison.setProduitDansBoites1(produitALivrer);
             if(descriptionStationsDeLivraison != null){

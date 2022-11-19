@@ -37,7 +37,7 @@ public class Boite {
     }
 
     public void setQteActuelProduit2(int qteActuelProduit2) {
-        this.qteActuelProduit2 = this.qteActuelProduit1 + qteActuelProduit2;
+        this.qteActuelProduit2 = this.qteActuelProduit2 + qteActuelProduit2;
     }
 
     public int getNbrProduit1Necessaire() {
