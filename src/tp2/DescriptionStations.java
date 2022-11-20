@@ -47,21 +47,13 @@ public enum DescriptionStations {
   TOURAILLE_CHARBON("mto", 20,
           new Boite(Produit.CHARBON, 1),
           Produit.COKE, 1),
- // VENDEUR("ven", new Boite(Produit.valueOf(produit)), produit ))
   ;
-  public static Produit produit;
   public String nomMachine;
   public int nbrTours;
   public Boite boite;
   public Produit livre;
   public int nbrProduitLivre;
   public boolean nbrToursComplet = false;
-
-  //pour le vendeur
-  DescriptionStations(String nomMachine, Boite boite, Produit produit) {
-    this.nomMachine = nomMachine;
-    this.boite = boite;
-  }
 
   //pour le fournisseur
   DescriptionStations(String nomMachine, int nbrTours, Produit livre, int nbrProduitLivre) {

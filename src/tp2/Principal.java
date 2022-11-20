@@ -24,14 +24,14 @@ public class Principal {
             Usine.verifierSiBoiteEstComplet();
             Usine.afficherEtatUsine();//afficher etat de l usine
 
-            usine.setMontantActuel(montantActuel); //set le montant actuel
+            //usine.setMontantActuel(montantActuel); //set le montant actuel
             System.out.println(usine.montantActuel + "$"); //afficher le
             // montant actuel
             nbrTours++;
             usine.setNbrTours(nbrTours); //set le nombre de tours
             System.out.println();
            // System.out.println(Usine.listeDeStations);
-        }while (usine.getNbrTours() < 50); //until montantActuel <
+        }while (usine.getNbrTours() < 75); //until montantActuel <
         // montantFinale || utilisateur a dit f
 
 

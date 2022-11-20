@@ -12,7 +12,7 @@ public class Vendeur extends Station {
         listeDeProduits = new ArrayList<>();
     }
 
-    public ArrayList<ProduitAVendre> getListeDeProduits() {
-        return listeDeProduits;
-    }
+//    public ArrayList<ProduitAVendre> getListeDeProduits() {
+//        return listeDeProduits;
+//    }
 }

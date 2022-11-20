@@ -13,8 +13,9 @@ public class Usine {
     static ArrayList<Machine> listeDeMachines;
     int debutMontant;
     int finMontant;
-    int montantActuel;
+    static int montantActuel;
     static int nbrToursTest;
+
 
     // private static final List<String> typesDeStations =
     //         Arrays.asList("fou","mmo","mfo","mfg","mfc","mto","ven");
@@ -264,16 +265,8 @@ public class Usine {
             boolean boite2Existe = false;
             stationActuel = listeDeStations.get(i);
 
-            if(stationActuel.getNom().toString().equals("ven")){
-                if(stationActuel.getProduitDansBoites1() != null){
-                    Produit produit = stationActuel.getProduitDansBoites1();
-                    int nbrProduit;
-                    int valeurDuProduit = produit.valeur;
-
-                }
-            }
-
-            if(!(stationActuel.getNom().toString().equals("fou"))){
+            if(!(stationActuel.getNom().toString().equals("fou")) ||
+                    !(stationActuel.getNom().toString().equals("ven"))){
                 try{
                     descriptionStations = trouverDescriptionStations(stationActuel,
                             stationActuel.getProduitDansBoites1());
@@ -368,30 +361,36 @@ public class Usine {
                                           int nbrProduitLivre,
                                           Produit produitBoite1,
                                           Produit produitALivrer) {
+        if(!stationDeLivraison.getNom().toString().equals("ven")){
+            DescriptionStations descriptionStationsDeLivraison;
+            if (produitBoite1 == null){
+                descriptionStationsDeLivraison =
+                        trouverDescriptionStations(stationDeLivraison, stationActuel,
+                                produitALivrer);
+            }else {
+                descriptionStationsDeLivraison =
+                        trouverDescriptionStations(stationDeLivraison, stationActuel,
+                                produitBoite1);
+            }
 
-        //TODO le cas ou c un vendeur et wrap tout en bas avec un if != ven
-
-        DescriptionStations descriptionStationsDeLivraison;
-        if (produitBoite1 == null){
-            descriptionStationsDeLivraison =
-                    trouverDescriptionStations(stationDeLivraison, stationActuel,
-                            produitALivrer);
+            if (numDeBoiteOuLivrer == 0) {
+                stationDeLivraison.setProduitDansBoites1(produitALivrer);
+                if(descriptionStationsDeLivraison != null){
+                    descriptionStationsDeLivraison.getBoite().setQteActuelProduit1(nbrProduitLivre);
+                }
+            } else if (numDeBoiteOuLivrer == 1) {
+                if(descriptionStationsDeLivraison != null){
+                    descriptionStationsDeLivraison.getBoite().setQteActuelProduit2(nbrProduitLivre);
+                }
+                stationDeLivraison.setProduitDansBoites2(produitALivrer);
+            }
         }else {
-            descriptionStationsDeLivraison =
-                    trouverDescriptionStations(stationDeLivraison, stationActuel,
-                            produitBoite1);
-        }
+            //TODO le cas ou c un vendeur
 
-        if (numDeBoiteOuLivrer == 0) {
-            stationDeLivraison.setProduitDansBoites1(produitALivrer);
-            if(descriptionStationsDeLivraison != null){
-                descriptionStationsDeLivraison.getBoite().setQteActuelProduit1(nbrProduitLivre);
-            }
-        } else if (numDeBoiteOuLivrer == 1) {
-            if(descriptionStationsDeLivraison != null){
-                descriptionStationsDeLivraison.getBoite().setQteActuelProduit2(nbrProduitLivre);
-            }
-            stationDeLivraison.setProduitDansBoites2(produitALivrer);
+            ProduitAVendre produitAVendre =
+                    new ProduitAVendre(nbrProduitLivre, produitALivrer);
+            stationDeLivraison.getListeDeProduits().add(produitAVendre);
+            montantActuel = montantActuel + produitAVendre.calculerPrix();
         }
     }
 
@@ -452,10 +451,6 @@ public class Usine {
             case "mto":
                 descriptionStationsDeLivraison = DescriptionStations.valueOf(
                         "TOURAILLE_"+produitDansBoite);
-                break;
-            case "ven":
-                //TODO
-
                 break;
         }
         return descriptionStationsDeLivraison;

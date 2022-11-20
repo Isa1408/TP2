@@ -1,6 +1,9 @@
 package tp2.station;
 
 import tp2.Produit;
+import tp2.ProduitAVendre;
+
+import java.util.ArrayList;
 
 public abstract class Station {
     private String nom;
@@ -8,10 +11,12 @@ public abstract class Station {
     private int numDeBoite;
     private Produit produit;
     private Produit [] produitDansBoites;
+    ArrayList<ProduitAVendre> listeDeProduits;
 
     public Station (String nom){
         this.nom = nom;
         this.produitDansBoites = new Produit[2];
+        this.listeDeProduits = new ArrayList<>();
     }
 
     public Station(String nom, int numDeLivraison,
@@ -70,4 +75,7 @@ public abstract class Station {
         this.produitDansBoites[1] = produit2;
     }
 
+    public ArrayList<ProduitAVendre> getListeDeProduits() {
+        return listeDeProduits;
+    }
 }

@@ -7,13 +7,8 @@ public class Boite {
     private int nbrProduit2Necessaire;
     private int qteActuelProduit1;
     private int qteActuelProduit2;
-    int compteurDeTours;
+    int compteurDeTours = 0;
     boolean complet = false;
-
-    // pour le vendeur
-    public Boite(Produit produit1) {
-        this.produit1 = produit1;
-    }
 
     public Boite(Produit produit1, int nbrProduit1Necessaire) {
         this.produit1 = produit1;
