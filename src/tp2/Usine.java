@@ -264,6 +264,15 @@ public class Usine {
             boolean boite2Existe = false;
             stationActuel = listeDeStations.get(i);
 
+            if(stationActuel.getNom().toString().equals("ven")){
+                if(stationActuel.getProduitDansBoites1() != null){
+                    Produit produit = stationActuel.getProduitDansBoites1();
+                    int nbrProduit;
+                    int valeurDuProduit = produit.valeur;
+
+                }
+            }
+
             if(!(stationActuel.getNom().toString().equals("fou"))){
                 try{
                     descriptionStations = trouverDescriptionStations(stationActuel,
@@ -298,12 +307,17 @@ public class Usine {
                             //TODO commencer le comptage du nbr de tours
                             descriptionStations.getBoite().setComplet(true);
                             descriptionStations.getBoite().setCompteurDeTours(1);
+                            //TODO enlever les produits necessaires ici
+//                            descriptionStations.getBoite().setQteActuelProduit1(- descriptionStations.getBoite().getNbrProduit1Necessaire());
+//                            descriptionStations.getBoite().setQteActuelProduit2(- descriptionStations.getBoite().getNbrProduit2Necessaire());
                         }
                     }else {
                         if(boite1Complet){
                             //TODO commencer le comptage du nbr de tours
                             descriptionStations.getBoite().setComplet(true);
                             descriptionStations.getBoite().setCompteurDeTours(1);
+                            //TODO enlever les produits necessaires ici
+//                            descriptionStations.getBoite().setQteActuelProduit1(- descriptionStations.getBoite().getNbrProduit1Necessaire());
                         }
                     }
 
@@ -338,8 +352,7 @@ public class Usine {
                         descriptionStations.getBoite().setQteActuelProduit1(- descriptionStations.getBoite().getNbrProduit1Necessaire());
                         if(boite2Existe){
                             descriptionStations.getBoite().setQteActuelProduit2(- descriptionStations.getBoite().getNbrProduit2Necessaire());
-                        }
-
+                       }
                     }
                 }catch (Exception e){
                    // System.out.println("boite est null");
@@ -355,6 +368,9 @@ public class Usine {
                                           int nbrProduitLivre,
                                           Produit produitBoite1,
                                           Produit produitALivrer) {
+
+        //TODO le cas ou c un vendeur et wrap tout en bas avec un if != ven
+
         DescriptionStations descriptionStationsDeLivraison;
         if (produitBoite1 == null){
             descriptionStationsDeLivraison =
@@ -436,6 +452,10 @@ public class Usine {
             case "mto":
                 descriptionStationsDeLivraison = DescriptionStations.valueOf(
                         "TOURAILLE_"+produitDansBoite);
+                break;
+            case "ven":
+                //TODO
+
                 break;
         }
         return descriptionStationsDeLivraison;

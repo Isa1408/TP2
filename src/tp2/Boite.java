@@ -10,6 +10,11 @@ public class Boite {
     int compteurDeTours;
     boolean complet = false;
 
+    // pour le vendeur
+    public Boite(Produit produit1) {
+        this.produit1 = produit1;
+    }
+
     public Boite(Produit produit1, int nbrProduit1Necessaire) {
         this.produit1 = produit1;
         this.nbrProduit1Necessaire = nbrProduit1Necessaire;
