@@ -73,6 +73,14 @@ public enum DescriptionStations {
     this.nbrProduitLivre = nbrProduitLivre;
   }
 
+  public void ameliorerMachine(){
+    diminuerNbrTours();
+  }
+
+  public void ameliorerMachineNiv3(){
+    augQteFabriquee();
+  }
+
   public void diminuerNbrTours(){
     this.nbrTours--;
   }
