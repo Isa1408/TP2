@@ -1,6 +1,7 @@
 package tp2;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Principal {
     public static void main(String[] args) {
@@ -10,7 +11,11 @@ public class Principal {
         int debutMontant = usine.debutMontant;
         int montantFinal = usine.finMontant;
         int montantActuel = usine.montantActuel;
-        int nbrTours = usine.nbrToursTest;
+        int nbrTours = usine.nbrTours;
+        String commande;
+        Boolean mauvaisChar;
+        String premierChar;
+        int entree;
 
 
         do{
@@ -30,9 +35,45 @@ public class Principal {
             nbrTours++;
             usine.setNbrTours(nbrTours); //set le nombre de tours
             System.out.println();
-           // System.out.println(Usine.listeDeStations);
-        }while (usine.getNbrTours() < 75); //until montantActuel <
-        // montantFinale || utilisateur a dit f
+
+            do{
+                mauvaisChar = false;
+                Scanner clavier = new Scanner(System.in);
+                System.out.print("=>");
+                commande = clavier.nextLine();
+
+                premierChar = commande.substring(0,1);
+
+                if(!premierChar.equals("s") && !premierChar.equals("a") && !premierChar.equals("f")){
+                    mauvaisChar = true;
+                }
+                if(!mauvaisChar){
+                    if(premierChar.equals("s")){
+                        try{
+                            commande = commande.substring(1).trim();
+                            if(!commande.equals("")){
+                                entree = Integer.parseInt(commande);
+//                                nbrTours = nbrTours + entree;
+//                                usine.setNbrTours(nbrTours);
+                                for (int i = 0; i < entree -1; i++) {
+                                    Usine.setteurDeProduitStationsParLesFournisseurs();
+                                    Usine.verifierSiBoiteEstComplet();
+                                    nbrTours++;
+                                    usine.setNbrTours(nbrTours);
+                                }
+                            }
+                        }catch (NumberFormatException e){
+                            mauvaisChar = true;
+                            System.out.println("Format invalide!");
+                        }
+                    }
+                }
+            }while (mauvaisChar);
+
+
+
+        }while (usine.montantActuel < montantFinal && !premierChar.equals("f"));
+
 
 
 

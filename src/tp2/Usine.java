@@ -14,7 +14,7 @@ public class Usine {
     int debutMontant;
     int finMontant;
     static int montantActuel;
-    static int nbrToursTest;
+    static int nbrTours;
 
 
     // private static final List<String> typesDeStations =
@@ -24,7 +24,7 @@ public class Usine {
         this.debutMontant = Integer.parseInt(liste.get(0));
         this.finMontant = Integer.parseInt(liste.get(1));
         this.montantActuel = debutMontant;
-        this.nbrToursTest = 0;
+        this.nbrTours = 0;
         creerListeStation(liste);
     }
 
@@ -191,7 +191,7 @@ public class Usine {
                                             Station stationDeLivraison,
                                             Station stationActuel,
                                             int nbrToursNecessaires) {
-        if ((nbrToursTest % nbrToursNecessaires == 0) && nbrToursTest != 0) {
+        if ((nbrTours % nbrToursNecessaires == 0) && nbrTours != 0) {
 
             livrerLesProduits(numDeBoiteOuLivrer, stationDeLivraison,
                     stationActuel, 1);
@@ -265,7 +265,7 @@ public class Usine {
             boolean boite2Existe = false;
             stationActuel = listeDeStations.get(i);
 
-            if(!(stationActuel.getNom().toString().equals("fou")) ||
+            if(!(stationActuel.getNom().toString().equals("fou")) &&
                     !(stationActuel.getNom().toString().equals("ven"))){
                 try{
                     descriptionStations = trouverDescriptionStations(stationActuel,
@@ -589,7 +589,7 @@ public class Usine {
         }
 
         public int getNbrTours () {
-            return nbrToursTest;
+            return nbrTours;
         }
 
         public void setMontantActuel ( int montantActuel){
@@ -597,7 +597,7 @@ public class Usine {
         }
 
         public void setNbrTours ( int nbrTours){
-            this.nbrToursTest = nbrTours;
+            this.nbrTours = nbrTours;
         }
     }
 
