@@ -54,6 +54,7 @@ public enum DescriptionStations {
   public Produit livre;
   public int nbrProduitLivre;
   public boolean nbrToursComplet = false;
+  public int niveau = 0;
 
   //pour le fournisseur
   DescriptionStations(String nomMachine, int nbrTours, Produit livre, int nbrProduitLivre) {
@@ -71,6 +72,14 @@ public enum DescriptionStations {
     this.boite = boite;
     this.livre = livre;
     this.nbrProduitLivre = nbrProduitLivre;
+  }
+
+  public int getNiveau() {
+    return niveau;
+  }
+
+  public void setNiveau(int niveau) {
+    this.niveau = this.niveau + niveau;
   }
 
   public void ameliorerMachine(){

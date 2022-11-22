@@ -18,6 +18,7 @@ public class Principal {
         String premierChar;
         int entree;
         String produit;
+        Boolean ameliorationFait;
 
 
         do{
@@ -79,7 +80,7 @@ public class Principal {
                                     produit =
                                             Usine.listeDeStations.get(entree).getProduitDansBoites1().toString();
 
-                                    switch (Usine.listeDeStations.get(entree).toString()){
+                                    switch (Usine.listeDeStations.get(entree).getNom().toString()){
                                         case "mmo":
                                             descriptionStations = DescriptionStations.valueOf(
                                                     "MOULIN_"+produit);
@@ -101,9 +102,35 @@ public class Principal {
                                                     "TOURAILLE_"+produit);
                                             break;
                                     }
-                                    if(descriptionStations != null){
+                                    if(descriptionStations != null && Usine.montantActuel >= 400){
                                         //TODO compter le nombre d ameliorations
-                                        descriptionStations.ameliorerMachine();
+                                        ameliorationFait = false;
+                                        if(descriptionStations.getNiveau() < 2){
+                                            if(descriptionStations.getNiveau() == 0){
+                                                descriptionStations.setNiveau(1);
+                                                descriptionStations.ameliorerMachine();
+                                                Usine.montantActuel =
+                                                        Usine.montantActuel - 400;
+                                                ameliorationFait = true;
+                                            }
+                                            if(descriptionStations.getNiveau() == 1
+                                                    && Usine.montantActuel >= 800
+                                                    && !ameliorationFait){
+                                                descriptionStations.setNiveau(1);
+                                                descriptionStations.ameliorerMachine();
+                                                Usine.montantActuel =
+                                                        Usine.montantActuel - 800;
+                                                ameliorationFait = true;
+                                            }
+                                        }
+                                        if(descriptionStations.getNiveau() == 2
+                                                && Usine.montantActuel >= 1600
+                                                && !ameliorationFait){
+                                            descriptionStations.setNiveau(1);
+                                            descriptionStations.ameliorerMachineNiv3();
+                                            Usine.montantActuel =
+                                                    Usine.montantActuel - 1600;
+                                        }
                                     }
                                 }catch (Exception e){
                                     System.out.println("Vous ne pouvez pas " +
@@ -126,6 +153,12 @@ public class Principal {
 
 
         }while (usine.montantActuel < montantFinal && !premierChar.equals("f"));
+
+        if(premierChar.equals("f")){
+            System.out.println("--fin de la partie--");
+            System.out.println(Usine.montantActuel + "$");
+            System.out.println("Nombre de tours : " + Usine.nbrTours);
+        }
 
 
 
