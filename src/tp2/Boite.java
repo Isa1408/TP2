@@ -7,8 +7,12 @@ public class Boite {
     private int nbrProduit2Necessaire;
     private int qteActuelProduit1;
     private int qteActuelProduit2;
-    int compteurDeTours = 0;
+    int compteurDeTours = -1;
     boolean complet = false;
+
+    public Boite(int compteurDeTours) {
+        this.compteurDeTours = compteurDeTours;
+    }
 
     public Boite(Produit produit1, int nbrProduit1Necessaire) {
         this.produit1 = produit1;
@@ -22,6 +26,10 @@ public class Boite {
         this.produit2 = produit2;
         this.nbrProduit1Necessaire = nbrProduit1Necessaire;
         this.nbrProduit2Necessaire = nbrProduit2Necessaire;
+    }
+
+    public int getNbrToursRestant(DescriptionStations descriptionStations){
+       return descriptionStations.nbrTours - compteurDeTours;
     }
 
     public int getQteActuelProduit1() {

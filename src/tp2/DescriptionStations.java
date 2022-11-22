@@ -1,10 +1,10 @@
 package tp2;
 
 public enum DescriptionStations {
-  FOURNISSEUR_ACANTHITE("fou", 2, Produit.ACANTHITE, 1),
-  FOURNISSEUR_CASSITERITE("fou", 7, Produit.CASSITERITE, 1),
-  FOURNISSEUR_CHALCOCITE("fou", 3, Produit.CHALCOCITE, 1),
-  FOURNISSEUR_CHARBON("fou", 1, Produit.CHARBON, 1),
+  FOURNISSEUR_ACANTHITE("fou", 2, Produit.ACANTHITE, 1, new Boite(0)),
+  FOURNISSEUR_CASSITERITE("fou", 7, Produit.CASSITERITE, 1, new Boite(0)),
+  FOURNISSEUR_CHALCOCITE("fou", 3, Produit.CHALCOCITE, 1, new Boite(0)),
+  FOURNISSEUR_CHARBON("fou", 1, Produit.CHARBON, 1, new Boite(0)),
   MOULIN_ACANTHITE("mmo", 3,
           new Boite(Produit.ACANTHITE, 1), Produit.POUDRE_ACANTHITE, 1),
   MOULIN_CASSITERRITE("mmo", 7,
@@ -55,11 +55,15 @@ public enum DescriptionStations {
   public int nbrProduitLivre;
   public boolean nbrToursComplet = false;
   public int niveau = 0;
+  public int nbrToursRestant;
+
 
   //pour le fournisseur
-  DescriptionStations(String nomMachine, int nbrTours, Produit livre, int nbrProduitLivre) {
+  DescriptionStations(String nomMachine, int nbrTours, Produit livre,
+                      int nbrProduitLivre, Boite boite) {
     this.nomMachine = nomMachine;
     this.nbrTours = nbrTours;
+    this.boite = boite;
     this.livre = livre;
     this.nbrProduitLivre = nbrProduitLivre;
   }
