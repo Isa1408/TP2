@@ -50,11 +50,17 @@ public class Principal {
                             commande = commande.substring(1).trim();
                             if(!commande.equals("")){
                                 entree = Integer.parseInt(commande);
-                                for (int i = 0; i < entree -1; i++) {
-                                    Usine.setteurDeProduitStationsParLesFournisseurs();
-                                    Usine.verifierSiBoiteEstComplet();
-                                    nbrTours++;
-                                    usine.setNbrTours(nbrTours);
+                                if(entree >= 1){
+                                    for (int i = 0; i < entree -1; i++) {
+                                        Usine.setteurDeProduitStationsParLesFournisseurs();
+                                        Usine.verifierSiBoiteEstComplet();
+                                        nbrTours++;
+                                        usine.setNbrTours(nbrTours);
+                                    }
+                                } else {
+                                    mauvaisChar = true;
+                                    System.out.println("Vous avez entré un " +
+                                            "nombre invalide!");
                                 }
                             }
                         }catch (NumberFormatException e){
