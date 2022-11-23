@@ -5,9 +5,15 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represente la classe qui va manipuler les fichiers d'entrées et de sorties.
+ *
+ * @Author Bruno Malenfant
+ * @Author Isabelle Tamas
+ */
 public class LireFichier {
     /**
-     * Demande à l'utilisateur le nom des fichiers.
+     * Demande à l'utilisateur le nom du fichier.
      * @return retourne le nom du fichier saisi.
      */
     public static String demanderNomFichier(){
@@ -36,7 +42,7 @@ public class LireFichier {
     }
 
     /**
-     * Parcoure le fichier et place chaque caractères dans un
+     * Parcoure le fichier et place chaque caractère dans un
      * <code>Arraylist</code>
      * @return retourne un <code>Arraylist</code> de type <code>String</code>
      */

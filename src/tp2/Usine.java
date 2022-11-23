@@ -16,10 +16,6 @@ public class Usine {
     static int montantActuel;
     static int nbrTours;
 
-
-    // private static final List<String> typesDeStations =
-    //         Arrays.asList("fou","mmo","mfo","mfg","mfc","mto","ven");
-
     public Usine(ArrayList<String> liste) {
         this.debutMontant = Integer.parseInt(liste.get(0));
         this.finMontant = Integer.parseInt(liste.get(1));
@@ -29,17 +25,15 @@ public class Usine {
     }
 
     public static void creerListeStation(ArrayList<String> liste) {
-        String descriptionStation = ""; //tout la description de la statition
-        String nomStation = ""; //juste le premier mot
-        String leReste = ""; //tout ce qui vient apres le premier mot
-        int delimiterPremierMot; //sera l index du premier espace pour
-        // delimiter le premier mot
+        String descriptionStation = "";
+        String nomStation = "";
+        String leReste = "";
+        int delimiterPremierMot;
         int numDeStationLivraison = 0;
         int numDeBoiteLivraison = 0;
         String typeDeFournisseur = "";
         String typeDeFournisseurMaj = "";
         int[] tabTemp = null;
-        //  Produit [] produitDansBoites = new Produit[2];
         listeDeStations = new ArrayList<>();
         listeDeFournisseurs = new ArrayList<>();
         listeDeMachines = new ArrayList<>();
@@ -121,7 +115,6 @@ public class Usine {
                     break;
             }
         }
-        //System.out.println("la liste de stations: "+listeDeStations);
     }
 
     public static int[] descriptionLivraisons(String leReste,
