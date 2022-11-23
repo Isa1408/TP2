@@ -26,17 +26,12 @@ public class Principal {
 
 
         do{
-            Usine.setteurDeProduitStationsParLesFournisseurs(); //set les boites des stations
-                // qui sont en lien direct avec le fournisseur (a revoir)
-            //System.out.println(Usine.listeDeStations);
+            Usine.setteurDeProduitStationsParLesFournisseurs();
             Usine.verifierSiBoiteEstComplet();
-            Usine.afficherEtatUsine();//afficher etat de l usine
-
-            //usine.setMontantActuel(montantActuel); //set le montant actuel
-            System.out.println(usine.montantActuel + "$"); //afficher le
-            // montant actuel
+            Usine.afficherEtatUsine();
+            System.out.println(usine.montantActuel + "$");
             nbrTours++;
-            usine.setNbrTours(nbrTours); //set le nombre de tours
+            usine.setNbrTours(nbrTours);
             System.out.println();
 
             do{
@@ -44,7 +39,6 @@ public class Principal {
                 Scanner clavier = new Scanner(System.in);
                 System.out.print("=>");
                 commande = clavier.nextLine();
-
                 premierChar = commande.substring(0,1);
 
                 if(!premierChar.equals("s") && !premierChar.equals("a") && !premierChar.equals("f")){
@@ -73,7 +67,7 @@ public class Principal {
                             commande = commande.substring(1).trim();
                             if(!commande.equals("")){
                                 entree = Integer.parseInt(commande);
-                                mauvaisChar = true; //pour amelioration
+                                mauvaisChar = true;
 
                                 try {
                                     DescriptionStations descriptionStations = null;
@@ -109,6 +103,10 @@ public class Principal {
                                             Usine.montantActuel =
                                                     Usine.montantActuel - 1600;
                                         }
+                                    }else {
+                                        System.out.println("Vous n'avez pas " +
+                                                "les ressources nécessaires " +
+                                                "pour améliorer la machine.");
                                     }
                                 }catch (Exception e){
                                     System.out.println("Vous ne pouvez pas " +
@@ -128,8 +126,6 @@ public class Principal {
                 }
             }while (mauvaisChar);
 
-
-
         }while (usine.montantActuel < montantFinal && !premierChar.equals("f"));
 
         if(premierChar.equals("f")){
@@ -137,11 +133,16 @@ public class Principal {
             System.out.println(Usine.montantActuel + "$");
             System.out.println("Nombre de tours : " + Usine.nbrTours);
         }
-
-
-
     }
 
+    /**
+     * Retourne le type de <code>DescriptionStations</code>.
+     *
+     * @param entree l'indexe de la <code>Station</code>
+     * @param produit le <code>Produit</code>
+     * @param descriptionStations la <code>DescriptionStations</code>
+     * @return la <code>DescriptionStations</code>
+     */
     private static DescriptionStations getDescriptionStations(int entree, String produit, DescriptionStations descriptionStations) {
         switch (Usine.listeDeStations.get(entree).getNom().toString()){
             case "mmo":
