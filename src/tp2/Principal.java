@@ -128,7 +128,7 @@ public class Principal {
 
         }while (usine.montantActuel < montantFinal && !premierChar.equals("f"));
 
-        if(premierChar.equals("f")){
+        if(premierChar.equals("f") || premierChar.equals("s")){
             System.out.println("--fin de la partie--");
             System.out.println(Usine.montantActuel + "$");
             System.out.println("Nombre de tours : " + Usine.nbrTours);

@@ -250,12 +250,15 @@ public class Usine {
     }
 
     /**
+     * Livraison de <code>Produit</code> dans la <code>Boite</code> de la
+     * <code>Station</code> correspondante.
      *
-     *
-     * @param numDeBoiteOuLivrer
-     * @param stationDeLivraison
-     * @param stationActuel
-     * @param nbrProduitLivre
+     * @param numDeBoiteOuLivrer l'indexe de la <code>Boite</code>
+     * @param stationDeLivraison l'indexe de la <code>Station</code> de
+     *                           livraison
+     * @param stationActuel la <code>Station</code> actuelle dans la liste de
+     *                     <code>Station</code>s
+     * @param nbrProduitLivre le nombre de <code>Produit</code>s qui sont livrés
      */
     private static void livrerLesProduits(int numDeBoiteOuLivrer,
                                           Station stationDeLivraison,
@@ -277,13 +280,15 @@ public class Usine {
     }
 
     /**
+     * Déterminer la <code>Machine</code>
      *
-     *
-     * @param stationDeLivraison
-     * @param stationActuel
-     * @return
+     * @param stationDeLivraison la <code>Station</code> de livraison
+     * @param stationActuel la <code>Station</code> actuelle
+     * @return la <code>DescriptionStations</code> de la <code>Station</code>
+     * de livraison
      */
-    private static DescriptionStations trouverDescriptionStations(Station stationDeLivraison, Station stationActuel) {
+    private static DescriptionStations trouverDescriptionStations(Station stationDeLivraison,
+                                                                  Station stationActuel) {
         Produit produitALivrer;
         DescriptionStations descriptionStationsDeLivraison = null;
 
@@ -318,7 +323,9 @@ public class Usine {
     }
 
     /**
-     *
+     * Vérifier si la <code>Boite</code> de la <code>Station</code> est
+     * complète en fonction du nombre de <code>Produit</code>s qu'elle
+     * détient.
      *
      */
     public static void verifierSiBoiteEstComplet(){
@@ -335,12 +342,25 @@ public class Usine {
 
             if(!(stationActuel.getNom().toString().equals("fou")) &&
                     !(stationActuel.getNom().toString().equals("ven"))){
-                verifierLExistanceDesBoites(stationActuel, boite1Complet, boite2Complet, boite2Existe);
+                verifierLExistanceDesBoites(stationActuel, boite1Complet,
+                        boite2Complet, boite2Existe);
             }
         }
     }
 
-    private static void verifierLExistanceDesBoites(Station stationActuel, boolean boite1Complet, boolean boite2Complet, boolean boite2Existe) {
+    /**
+     * Vérifier si la <code>Machine</code> contient deux <code>Boite</code>s
+     * de recette.
+     *
+     * @param stationActuel la <code>Station</code> actuelle dans la liste
+     * @param boite1Complet true si la <code>Boite</code> 1 est complète
+     * @param boite2Complet true si la <code>Boite</code> 2 est complète
+     * @param boite2Existe true si la <code>Boite</code> 2 existe
+     */
+    private static void verifierLExistanceDesBoites(Station stationActuel,
+                                                    boolean boite1Complet,
+                                                    boolean boite2Complet,
+                                                    boolean boite2Existe) {
         int nbrActuelProduits1;
         DescriptionStations descriptionStations;
         int nbrActuelProduits2;
@@ -363,25 +383,48 @@ public class Usine {
                 }
             }
 
-            boite1Complet = verifierSiBoite1Complet(boite1Complet, nbrActuelProduits1, descriptionStations);
-            verifierSiBoite2Existe(descriptionStations, boite1Complet, boite2Complet, boite2Existe);
-            verifierSiNbrToursNecessaire(stationActuel, descriptionStations, boite2Existe);
+            boite1Complet = verifierSiBoite1Complet(boite1Complet,
+                    nbrActuelProduits1, descriptionStations);
+            verifierSiBoite2Existe(descriptionStations, boite1Complet,
+                    boite2Complet, boite2Existe);
+            verifierSiNbrToursNecessaire(stationActuel, descriptionStations,
+                    boite2Existe);
         }catch (Exception e){
 
         }
     }
 
-    private static boolean verifierSiBoite1Complet(boolean boite1Complet, int nbrActuelProduits1, DescriptionStations descriptionStations) {
-        if(nbrActuelProduits1 >= descriptionStations.getBoite().getNbrProduit1Necessaire()){
+    /**
+     * Vérifier si la première <code>Boite</code> est complète.
+     *
+     * @param boite1Complet true si la <code>Boite</code> est complète
+     * @param nbrActuelProduits1 le nombre de <code>Produit</code>s
+     * @param descriptionStations la <code>DescriptionStations</code>
+     * @return true si la première <code>Boite</code> est complète
+     */
+    private static boolean verifierSiBoite1Complet(boolean boite1Complet,
+                                                   int nbrActuelProduits1,
+                                                   DescriptionStations descriptionStations) {
+        if(nbrActuelProduits1 >=
+                descriptionStations.getBoite().getNbrProduit1Necessaire()){
             boite1Complet = true;
         }else {
             descriptionStations.getBoite().setComplet(false);
         }
-
         return boite1Complet;
     }
 
-    private static void verifierSiNbrToursNecessaire(Station stationActuel, DescriptionStations descriptionStations, boolean boite2Existe) {
+    /**
+     * Vérifier si le nombre de tours nécessaire est atteint par la
+     * <code>Station</code>.
+     *
+     * @param stationActuel la <code>Station</code> actuelle
+     * @param descriptionStations la <code>DescriptionStations</code>
+     * @param boite2Existe true si la deuxième <code>Boite</code> existe
+     */
+    private static void verifierSiNbrToursNecessaire(Station stationActuel,
+                                                     DescriptionStations descriptionStations,
+                                                     boolean boite2Existe) {
         int nbrDeToursActuelDeLaMachine;
         int nbrDeToursNecessaire;
         Station stationDeLivraison;
@@ -414,7 +457,19 @@ public class Usine {
         }
     }
 
-    private static void verifierSiBoite2Existe(DescriptionStations descriptionStations, boolean boite1Complet, boolean boite2Complet, boolean boite2Existe) {
+    /**
+     * Vérifier si la deuxième <code>Boite</code> de la
+     * <code>Machine</code> existe.
+     *
+     * @param descriptionStations la <code>DescriptionStations</code>
+     * @param boite1Complet true si la première <code>Boite</code> est complète
+     * @param boite2Complet true si la deuxième <code>Boite</code> est complète
+     * @param boite2Existe true si la deuxième <code>Boite</code> existe
+     */
+    private static void verifierSiBoite2Existe(DescriptionStations descriptionStations,
+                                               boolean boite1Complet,
+                                               boolean boite2Complet,
+                                               boolean boite2Existe) {
         if(boite2Existe){
             verifierBoitesCompletes(descriptionStations, boite1Complet, boite2Complet);
         }else {
@@ -422,13 +477,27 @@ public class Usine {
         }
     }
 
-    private static void verifierBoite1Complete(DescriptionStations descriptionStations, boolean boite1Complet) {
+    /**
+     * Vérifier si la première <code>Boite</code> existe.
+     *
+     * @param descriptionStations la <code>DescriptionStations</code>
+     * @param boite1Complet true si la <code>Boite</code> est complète
+     */
+    private static void verifierBoite1Complete(DescriptionStations descriptionStations,
+                                               boolean boite1Complet) {
         if(boite1Complet){
             descriptionStations.getBoite().setComplet(true);
             descriptionStations.getBoite().setCompteurDeTours(1);
         }
     }
 
+    /**
+     * Vérifier si les deux <code>Boite</code>s sont complètes.
+     *
+     * @param descriptionStations la <code>DescriptionStations</code>
+     * @param boite1Complet true si la première <code>Boite</code> est complète
+     * @param boite2Complet true si la deuxième <code>Boite</code> est complète
+     */
     private static void verifierBoitesCompletes(DescriptionStations descriptionStations, boolean boite1Complet, boolean boite2Complet) {
         if(boite1Complet && boite2Complet){
             descriptionStations.getBoite().setComplet(true);
@@ -437,14 +506,16 @@ public class Usine {
     }
 
     /**
+     * Livrer les <code>Produit</code>s aux endroits correspondants.
      *
-     *
-     * @param numDeBoiteOuLivrer
-     * @param stationDeLivraison
-     * @param stationActuel
-     * @param nbrProduitLivre
-     * @param produitBoite1
-     * @param produitALivrer
+     * @param numDeBoiteOuLivrer l'indexe de la <code>Boite</code> de livraison
+     * @param stationDeLivraison l'indexe de la <code>Station</code> de
+     *                           livraison
+     * @param stationActuel la <code>Station</code> actuelle de la liste
+     * @param nbrProduitLivre le nombre de <code>Produit</code>s qui sont livrés
+     * @param produitBoite1 le <code>Produit</code> dans la première
+     *                      <code>Boite</code>
+     * @param produitALivrer le <code>Produit</code> à livrer
      */
     private static void livrerLesProduits(int numDeBoiteOuLivrer,
                                           Station stationDeLivraison,
@@ -484,15 +555,17 @@ public class Usine {
     }
 
     /**
+     * Spécifier la <code>DescriptionStations</code> de la <code>Station</code>.
      *
-     *
-     * @param stationDeLivraison
-     * @param stationActuel
-     * @param produitBoite1
-     * @return
+     * @param stationDeLivraison la <code>Station</code> de livraison
+     * @param stationActuel la <code>Station</code> actuelle
+     * @param produitBoite1 le <code>Produit</code> dans la première
+     *                      <code>Boite</code>
+     * @return la <code>DescriptionStations</code>
      */
-    private static DescriptionStations trouverDescriptionStations(Station stationDeLivraison, Station stationActuel, Produit produitBoite1) {
-        //Produit produitALivrer;
+    private static DescriptionStations trouverDescriptionStations(Station stationDeLivraison,
+                                                                  Station stationActuel,
+                                                                  Produit produitBoite1) {
         DescriptionStations descriptionStationsDeLivraison = null;
 
         switch (stationDeLivraison.getNom().toString()){
@@ -526,20 +599,21 @@ public class Usine {
     }
 
     /**
+     * Spécifier la <code>DescriptionStations</code> de la <code>Station</code>
      *
-     *
-     * @param stationActuel
-     * @param produitDansBoite
-     * @return
+     * @param stationActuel la <code>Station</code> actuelle
+     * @param produitDansBoite le <code>Produit</code> dans la <code>Boite</code>
+     * @return la <code>DescriptionStations</code>
      */
-    //pour l affichage
-    private static DescriptionStations trouverDescriptionStations(Station stationActuel, Produit produitDansBoite) {
+    private static DescriptionStations trouverDescriptionStations(Station stationActuel,
+                                                                  Produit produitDansBoite) {
         DescriptionStations descriptionStationsDeLivraison = null;
 
         switch (stationActuel.getNom().toString()){
             case "fou":
                 descriptionStationsDeLivraison =
-                        DescriptionStations.valueOf("FOURNISSEUR_"+ produitDansBoite);
+                        DescriptionStations.valueOf("FOURNISSEUR_"+
+                                produitDansBoite);
                 break;
             case "mmo":
                 descriptionStationsDeLivraison = DescriptionStations.valueOf(
@@ -566,12 +640,9 @@ public class Usine {
     }
 
     /**
-     *
+     * Afficher l'état actuel de la <code>Machine</code>.
      *
      */
-    // affichage de l usine( afficherEtatUsine, afficherLesMachines,
-    // afficherLesAutresMachines, afficherSelonLeContenuDesBoitesDeMFO,
-    // verifierLeContenuDesBoites )
     public static void afficherEtatUsine() {
         String etatUsine = "";
         Fournisseur fournisseur;
@@ -604,23 +675,27 @@ public class Usine {
     }
 
     /**
+     * Afficher les <code>Station</code>s qui sont des <code>Machine</code>s.
      *
-     *
-     * @param boite1Vide
-     * @param boite2Vide
-     * @param i
-     * @param station
+     * @param boite1Vide true si la première <code>Boite</code> est vide
+     * @param boite2Vide trus si la deuixème <code>Boite</code> est vide
+     * @param i indexe de la <code>Station</code> actuelle dans la liste
+     * @param station la <code>Station</code>
      */
-    private static void afficherLesMachines(Boolean boite1Vide, Boolean boite2Vide, int i, Station station) {
+    private static void afficherLesMachines(Boolean boite1Vide,
+                                            Boolean boite2Vide, int i,
+                                            Station station) {
         if (station.getNom().equals("mfo") || station.getNom().equals("mfg")){
             if(station.getNom().equals("mfo")){
                 if(station.getProduitDansBoites1().equals(Produit.LINGOT_CUIVRE)){
-                    verifierLeContenuDesBoites(station, boite1Vide, boite2Vide, i, station.getProduitDansBoites2());
+                    verifierLeContenuDesBoites(station, boite1Vide, boite2Vide,
+                            i, station.getProduitDansBoites2());
                 }else {
                     afficherSelonLeContenuDesBoitesDeMFO(i, station);
                 }
             }else {
-                verifierLeContenuDesBoites(station, boite1Vide, boite2Vide, i, station.getProduitDansBoites1());
+                verifierLeContenuDesBoites(station, boite1Vide, boite2Vide, i,
+                        station.getProduitDansBoites1());
             }
         }else {
             afficherLesAutresMachines(i, station);
@@ -628,10 +703,10 @@ public class Usine {
     }
 
     /**
+     * Afficher les <code>Machine</code>s qui ne sont ni des mfo ni des mfg.
      *
-     *
-     * @param i
-     * @param station
+     * @param i l'indexe de la <code>Station</code> dans la liste
+     * @param station la <code>Station</code>
      */
     private static void afficherLesAutresMachines(int i, Station station) {
         int nbrProduits;
@@ -652,17 +727,19 @@ public class Usine {
                     " F: " + descriptionStations.getNbrProduitLivre() + " " +
                     descriptionStations.getLivre() + " " +
                     descriptionStations.getBoite().getNbrToursRestant(descriptionStations)
-                    + " (" + station.getNumStation() + "," + station.getNumDeBoite() + ")");
+                    + " (" + station.getNumStation() + ","
+                    + station.getNumDeBoite() + ")");
         }
     }
 
     /**
+     * Afficher les <code>Machine</code>s qui sont des mfo.
      *
-     *
-     * @param i
-     * @param station
+     * @param i l'indexe de la <code>Station</code> dans la liste
+     * @param station la <code>Station</code>
      */
-    private static void afficherSelonLeContenuDesBoitesDeMFO(int i, Station station) {
+    private static void afficherSelonLeContenuDesBoitesDeMFO(int i,
+                                                             Station station) {
         int nbrProduits;
         DescriptionStations descriptionStations;
         if(station.getProduitDansBoites1() == null){
@@ -685,13 +762,14 @@ public class Usine {
     }
 
     /**
+     * Vérifier le contenu des <code>Boite</code>s de la <code>Machine</code>
+     * et l'afficher.
      *
-     *
-     * @param station
-     * @param boite1Vide
-     * @param boite2Vide
-     * @param i
-     * @param station1
+     * @param station la <code>Station</code>
+     * @param boite1Vide true si la première <code>Boite</code> est vide
+     * @param boite2Vide true si la deuxième <code>Boite</code> est vide
+     * @param i l'indexe de la <code>Station</code> dans la liste
+     * @param station1 le <code>Produit</code> de la <code>Station</code>
      */
     private static void verifierLeContenuDesBoites(Station station,
                                                    Boolean boite1Vide,
@@ -716,8 +794,8 @@ public class Usine {
             nbrProduits2 =
                     descriptionStations.getBoite().getQteActuelProduit2();
             System.out.println(i + " : " + station.getNom() + "(" +
-                   descriptionStations.getNiveau() + ") " + "B0: vide" +
-                    " B1: " + station.getProduitDansBoites2().toString(nbrProduits2));
+                   descriptionStations.getNiveau() + ") " + "B0: vide" + " B1: "
+                    + station.getProduitDansBoites2().toString(nbrProduits2));
         }
         if(boite2Vide && !boite1Vide){
             descriptionStations = trouverDescriptionStations(station,
@@ -745,59 +823,60 @@ public class Usine {
                     + " F: " + descriptionStations.getNbrProduitLivre() + " " +
                     descriptionStations.getLivre() + " "
                     + descriptionStations.getBoite().getNbrToursRestant(descriptionStations)
-                    + " (" + station.getNumStation() + "," + station.getNumDeBoite() + ")");
+                    + " (" + station.getNumStation() + ","
+                    + station.getNumDeBoite() + ")");
         }
     }
 
     /**
+     * Getteur du montant au début.
      *
-     *
-     * @return
+     * @return le montant
      */
     public int getDebutMontant() {
         return debutMontant;
     }
 
     /**
+     * Getteur du montant final à atteindre.
      *
-     *
-     * @return
+     * @return le montant final
      */
     public int getFinMontant() {
         return finMontant;
     }
 
     /**
+     * Getteur du montant actuel de l'<code>Usine</code>.
      *
-     *
-     * @return
+     * @return le montant actuel
      */
     public int getMontantActuel() {
         return montantActuel;
     }
 
     /**
+     * Getteur du nombre de tours de l'<code>Usine</code>.
      *
-     *
-     * @return
+     * @return le nombre de tours actuel
      */
     public int getNbrTours() {
         return nbrTours;
     }
 
     /**
+     * Setteur du montant actuel de l'<code>Usine</code>.
      *
-     *
-     * @param montantActuel
+     * @param montantActuel le montant actuel
      */
     public void setMontantActuel(int montantActuel) {
         this.montantActuel = montantActuel;
     }
 
     /**
+     * Setteur du nombre de tours de l'<code>Usine</code>.
      *
-     *
-     * @param nbrTours
+     * @param nbrTours le nouveau nombre de tours
      */
     public void setNbrTours(int nbrTours) {
         this.nbrTours = nbrTours;

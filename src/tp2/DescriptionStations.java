@@ -68,7 +68,6 @@ public enum DescriptionStations {
    * Constructeur de <code>DescriptionStations</code> utilisé pour les
    * <code>Station</code>s de type <code>Fournisseur</code>.
    *
-   *
    * @param nomMachine le nom du <code>Fournisseur</code>
    * @param nbrTours le nombre de tours nécessaires à la livraison
    * @param livre le <code>Produit</code> livré

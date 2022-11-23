@@ -26,7 +26,7 @@ public class LireFichier {
     }
 
     /**
-     * Lit le fichier d'entrée.
+     * Lecture du fichier d'entrée.
      *
      * @return le fichier demandé
      */
@@ -44,7 +44,7 @@ public class LireFichier {
     }
 
     /**
-     * Parcoure le fichier et place chaque caractère dans un
+     * Parcourir le fichier et placer chaque valeur dans un
      * <code>Arraylist</code>.
      *
      * @return un <code>Arraylist</code> de type <code>String</code>
