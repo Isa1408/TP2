@@ -1,5 +1,11 @@
 package tp2;
 
+/**
+ * Représente la classe Enum qui contient la description de toutes les
+ * <code>Station</code>s.
+ *
+ * @Author Bruno Malenfant
+ */
 public enum Produit {
     ACANTHITE( "acanthite", "acanthite", "acanthites", 68_510 ),
     CASSITERITE( "cassiterite", "cassitérite", "cassitérites", 1_750 ),

@@ -6,15 +6,16 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Represente la classe qui va manipuler les fichiers d'entrées et de sorties.
+ * Représente la classe qui va manipuler le fichier d'entré.
  *
  * @Author Bruno Malenfant
  * @Author Isabelle Tamas
  */
 public class LireFichier {
     /**
-     * Demande à l'utilisateur le nom du fichier.
-     * @return retourne le nom du fichier saisi.
+     * Demander à l'utilisateur le nom du fichier.
+     *
+     * @return le nom du fichier saisi
      */
     public static String demanderNomFichier(){
         Scanner clavier = new Scanner(System.in);
@@ -26,7 +27,8 @@ public class LireFichier {
 
     /**
      * Lit le fichier d'entrée.
-     * @return retourne le fichier demandé.
+     *
+     * @return le fichier demandé
      */
     public static Scanner lireFichier(){
         String nomFichierEntree = demanderNomFichier();
@@ -43,8 +45,9 @@ public class LireFichier {
 
     /**
      * Parcoure le fichier et place chaque caractère dans un
-     * <code>Arraylist</code>
-     * @return retourne un <code>Arraylist</code> de type <code>String</code>
+     * <code>Arraylist</code>.
+     *
+     * @return un <code>Arraylist</code> de type <code>String</code>
      */
     public static ArrayList<String> listeString(){
         Scanner fichier = lireFichier();

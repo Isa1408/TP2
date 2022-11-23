@@ -1,5 +1,11 @@
 package tp2;
 
+/**
+ * Représente la classe Enum qui contient la description de toutes les
+ * <code>Station</code>s.
+ *
+ * @Author Isabelle Tamas
+ */
 public enum DescriptionStations {
   FOURNISSEUR_ACANTHITE("fou", 2, Produit.ACANTHITE, 1, new Boite(0)),
   FOURNISSEUR_CASSITERITE("fou", 7, Produit.CASSITERITE, 1, new Boite(0)),
@@ -58,7 +64,17 @@ public enum DescriptionStations {
   public int nbrToursRestant;
 
 
-  //pour le fournisseur
+  /**
+   * Constructeur de <code>DescriptionStations</code> utilisé pour les
+   * <code>Station</code>s de type <code>Fournisseur</code>.
+   *
+   *
+   * @param nomMachine le nom du <code>Fournisseur</code>
+   * @param nbrTours le nombre de tours nécessaires à la livraison
+   * @param livre le <code>Produit</code> livré
+   * @param nbrProduitLivre le nombre de <code>Produit</code>s livrés
+   * @param boite la <code>Boite</code>
+   */
   DescriptionStations(String nomMachine, int nbrTours, Produit livre,
                       int nbrProduitLivre, Boite boite) {
     this.nomMachine = nomMachine;
@@ -68,7 +84,16 @@ public enum DescriptionStations {
     this.nbrProduitLivre = nbrProduitLivre;
   }
 
-  //pour les types de machines
+  /**
+   * Constructeur de <code>DescriptionStations</code> utilisé pour les
+   * <code>Station</code>s de type <code>Machine</code>.
+   *
+   * @param nomMachine le nom de la <code>Machine</code>
+   * @param nbrTours le nombre de tours nécessaires à la livraison
+   * @param boite la <code>Boite</code>
+   * @param livre le <code>Produit</code> livré
+   * @param nbrProduitLivre le nombre de <code>Produit</code>s livrés
+   */
   DescriptionStations(String nomMachine, int nbrTours, Boite boite,
                       Produit livre, int nbrProduitLivre) {
     this.nomMachine = nomMachine;
@@ -78,53 +103,119 @@ public enum DescriptionStations {
     this.nbrProduitLivre = nbrProduitLivre;
   }
 
+  /**
+   * Getteur du niveau de la <code>Machine</code>.
+   *
+   * @return le niveau
+   */
   public int getNiveau() {
     return niveau;
   }
 
+  /**
+   * Setteur du niveau de la <code>Machine</code>.
+   *
+   * @param niveau le niveau
+   */
   public void setNiveau(int niveau) {
     this.niveau = this.niveau + niveau;
   }
 
+  /**
+   * Améliorer la <code>Machine</code> au niveau 1 et 2.
+   *
+   */
   public void ameliorerMachine(){
     diminuerNbrTours();
   }
 
+  /**
+   * Améliorer la <code>Machine</code> au niveau 3.
+   *
+   */
   public void ameliorerMachineNiv3(){
     augQteFabriquee();
   }
 
+  /**
+   * Diminuer le nombre de tours nécessaire pour une machine avant de livrer
+   * son produit.
+   *
+   */
   public void diminuerNbrTours(){
     this.nbrTours--;
   }
 
+  /**
+   * Augmenter le nombre de <code>Produit</code>s fabriqués.
+   *
+   */
   public void augQteFabriquee(){
     this.nbrProduitLivre++;
   }
+
+  /**
+   * Retourne le nom de la <code>Machine</code>.
+   *
+   * @return le nom de la <code>Machine</code>
+   */
   public String getNomMachine() {
     return nomMachine;
   }
 
+  /**
+   * Retourne le nombre de tours nécessaires à la livraison du
+   * <code>Produit</code>.
+   *
+   * @return le nombre de tours
+   */
   public int getNbrTours() {
     return nbrTours;
   }
 
+  /**
+   * Retourne la <code>Boite</code> de la <code>Machine</code>.
+   *
+   * @return la <code>Boite</code>
+   */
   public Boite getBoite() {
     return boite;
   }
 
+  /**
+   * Retourne le <code>Produit</code> qui sera livré.
+   *
+   * @return le <code>Produit</code>
+   */
   public Produit getLivre() {
     return livre;
   }
 
+  /**
+   * Retourne le nombre de <code>Produit</code>s qui seront livrés.
+   *
+   * @return le nombre de <code>Produit</code>s
+   */
   public int getNbrProduitLivre() {
     return nbrProduitLivre;
   }
 
+  /**
+   * Retourne l'état de la <code>Station</code>. Savoir si elle contient le
+   * nombre de tours nécessaires à la production.
+   *
+   * @return true si le nombre de tours à atteint le nombre de tours
+   * nécessaires pour la livraison
+   */
   public boolean isNbrToursComplet() {
     return nbrToursComplet;
   }
 
+  /**
+   * Setteur du nombre de tours.
+   *
+   * @param nbrToursComplet est égal au nombre de tours nécessaires
+   */
   public void setNbrToursComplet(boolean nbrToursComplet) {
     this.nbrToursComplet = nbrToursComplet;
   }

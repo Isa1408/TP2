@@ -3,10 +3,14 @@ package tp2;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Représente la classe principale.
+ *
+ * @Author Isabelle Tamas
+ */
 public class Principal {
     public static void main(String[] args) {
-        ArrayList<String> liste = LireFichier.listeString(); //il affiche la
-            // premiere ligne pour le fichier
+        ArrayList<String> liste = LireFichier.listeString();
         Usine usine = new Usine(liste);
         int debutMontant = usine.debutMontant;
         int montantFinal = usine.finMontant;
@@ -22,10 +26,6 @@ public class Principal {
 
 
         do{
-
-            //scanner pour connaitre la prochaine etape que l utilisateur
-                // veut faire
-
             Usine.setteurDeProduitStationsParLesFournisseurs(); //set les boites des stations
                 // qui sont en lien direct avec le fournisseur (a revoir)
             //System.out.println(Usine.listeDeStations);
@@ -80,30 +80,8 @@ public class Principal {
                                     produit =
                                             Usine.listeDeStations.get(entree).getProduitDansBoites1().toString();
 
-                                    switch (Usine.listeDeStations.get(entree).getNom().toString()){
-                                        case "mmo":
-                                            descriptionStations = DescriptionStations.valueOf(
-                                                    "MOULIN_"+produit);
-                                            break;
-                                        case "mfo":
-                                            descriptionStations = DescriptionStations.valueOf(
-                                                    "FOURNAISE_"+produit);
-                                            break;
-                                        case "mfg":
-                                            descriptionStations = DescriptionStations.valueOf(
-                                                    "FOURNAISE_GRILLAGE_"+produit);
-                                            break;
-                                        case "mfc":
-                                            descriptionStations = DescriptionStations.valueOf(
-                                                    "FOURNAISE_COUPELLATION_"+produit);
-                                            break;
-                                        case "mto":
-                                            descriptionStations = DescriptionStations.valueOf(
-                                                    "TOURAILLE_"+produit);
-                                            break;
-                                    }
+                                    descriptionStations = getDescriptionStations(entree, produit, descriptionStations);
                                     if(descriptionStations != null && Usine.montantActuel >= 400){
-                                        //TODO compter le nombre d ameliorations
                                         ameliorationFait = false;
                                         if(descriptionStations.getNiveau() < 2){
                                             if(descriptionStations.getNiveau() == 0){
@@ -162,14 +140,31 @@ public class Principal {
 
 
 
+    }
 
-
-        //Usine.afficherEtatUsine(usine);
-
-//        System.out.println(Arrays.toString(DescriptionStations.values()));
-//        System.out.println(DescriptionStations.FOURNAISE_COUPELLATION_OXYDE_ARGENT.getBoite().toString());
-
-
-
+    private static DescriptionStations getDescriptionStations(int entree, String produit, DescriptionStations descriptionStations) {
+        switch (Usine.listeDeStations.get(entree).getNom().toString()){
+            case "mmo":
+                descriptionStations = DescriptionStations.valueOf(
+                        "MOULIN_"+ produit);
+                break;
+            case "mfo":
+                descriptionStations = DescriptionStations.valueOf(
+                        "FOURNAISE_"+ produit);
+                break;
+            case "mfg":
+                descriptionStations = DescriptionStations.valueOf(
+                        "FOURNAISE_GRILLAGE_"+ produit);
+                break;
+            case "mfc":
+                descriptionStations = DescriptionStations.valueOf(
+                        "FOURNAISE_COUPELLATION_"+ produit);
+                break;
+            case "mto":
+                descriptionStations = DescriptionStations.valueOf(
+                        "TOURAILLE_"+ produit);
+                break;
+        }
+        return descriptionStations;
     }
 }
