@@ -318,6 +318,15 @@ public class Usine {
                 descriptionStationsDeLivraison = DescriptionStations.valueOf(
                         "TOURAILLE_"+produitALivrer);
                 break;
+            case "ven":
+                if(stationActuel.getNom().equals("fou")){
+                    livrerLesProduits(stationActuel.getNumDeBoite(), stationDeLivraison,
+                            stationActuel
+                            , 1,
+                            stationDeLivraison.getProduitDansBoites1(),
+                            stationActuel.getProduit());
+                }
+                break;
         }
         return descriptionStationsDeLivraison;
     }
@@ -570,27 +579,22 @@ public class Usine {
 
         switch (stationDeLivraison.getNom().toString()){
             case "mmo":
-                //produitBoite1 = stationActuel.getProduit();
                 descriptionStationsDeLivraison = DescriptionStations.valueOf(
                         "MOULIN_"+produitBoite1);
                 break;
             case "mfo":
-                //produitBoite1 = stationActuel.getProduit();
                 descriptionStationsDeLivraison = DescriptionStations.valueOf(
                         "FOURNAISE_"+produitBoite1);
                 break;
             case "mfg":
-                //produitBoite1 = stationActuel.getProduit();
                 descriptionStationsDeLivraison = DescriptionStations.valueOf(
                         "FOURNAISE_GRILLAGE_"+produitBoite1);
                 break;
             case "mfc":
-                //produitBoite1 = stationActuel.getProduit();
                 descriptionStationsDeLivraison = DescriptionStations.valueOf(
                         "FOURNAISE_COUPELLATION_"+produitBoite1);
                 break;
             case "mto":
-                //produitBoite1 = stationActuel.getProduit();
                 descriptionStationsDeLivraison = DescriptionStations.valueOf(
                         "TOURAILLE_"+produitBoite1);
                 break;
@@ -687,11 +691,16 @@ public class Usine {
                                             Station station) {
         if (station.getNom().equals("mfo") || station.getNom().equals("mfg")){
             if(station.getNom().equals("mfo")){
-                if(station.getProduitDansBoites1().equals(Produit.LINGOT_CUIVRE)){
-                    verifierLeContenuDesBoites(station, boite1Vide, boite2Vide,
-                            i, station.getProduitDansBoites2());
+                if(station.getProduitDansBoites1() != null){
+                    if(station.getProduitDansBoites1().equals(Produit.LINGOT_CUIVRE)){
+                        verifierLeContenuDesBoites(station, boite1Vide, boite2Vide,
+                                i, station.getProduitDansBoites2());
+                    }else {
+                        afficherSelonLeContenuDesBoitesDeMFO(i, station);
+                    }
                 }else {
-                    afficherSelonLeContenuDesBoitesDeMFO(i, station);
+                    System.out.println(i + " : " + station.getNom() + "(0) " +
+                            "B0" + ": vide");
                 }
             }else {
                 verifierLeContenuDesBoites(station, boite1Vide, boite2Vide, i,
@@ -724,8 +733,9 @@ public class Usine {
             System.out.println(i + " : " + station.getNom() + "(" +
                     descriptionStations.getNiveau() + ") " + "B0: " +
                     station.getProduitDansBoites1().toString(nbrProduits) +
-                    " F: " + descriptionStations.getNbrProduitLivre() + " " +
-                    descriptionStations.getLivre() + " " +
+                    " F: " +
+                    descriptionStations.getLivre().toString(descriptionStations.getNbrProduitLivre())
+                    + " " +
                     descriptionStations.getBoite().getNbrToursRestant(descriptionStations)
                     + " (" + station.getNumStation() + ","
                     + station.getNumDeBoite() + ")");
@@ -753,8 +763,9 @@ public class Usine {
             System.out.println(i + " : " + station.getNom() + "(" +
                     descriptionStations.getNiveau() + ") " + "B0: " +
                     station.getProduitDansBoites1().toString(nbrProduits) +
-                    " F: " + descriptionStations.getNbrProduitLivre() + " " +
-                    descriptionStations.getLivre() + " " +
+                    " F: " +
+                    descriptionStations.getLivre().toString(descriptionStations.getNbrProduitLivre())
+                    + " " +
                     descriptionStations.getBoite().getNbrToursRestant(descriptionStations)
                     + " (" + station.getNumStation() + ","
                     + station.getNumDeBoite() + ")");
@@ -820,8 +831,9 @@ public class Usine {
                     station.getProduitDansBoites1().toString(nbrProduits1) +
                     " " +
                     " B1: " + station.getProduitDansBoites2().toString(nbrProduits2)
-                    + " F: " + descriptionStations.getNbrProduitLivre() + " " +
-                    descriptionStations.getLivre() + " "
+                    + " F: " +
+                    descriptionStations.getLivre().toString(descriptionStations.getNbrProduitLivre())
+                    + " "
                     + descriptionStations.getBoite().getNbrToursRestant(descriptionStations)
                     + " (" + station.getNumStation() + ","
                     + station.getNumDeBoite() + ")");

@@ -39,6 +39,7 @@ public class Principal {
                 Scanner clavier = new Scanner(System.in);
                 System.out.print("=>");
                 commande = clavier.nextLine();
+
                 premierChar = commande.substring(0,1);
 
                 if(!premierChar.equals("s") && !premierChar.equals("a") && !premierChar.equals("f")){
